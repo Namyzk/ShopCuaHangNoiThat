@@ -1,0 +1,1637 @@
+/* ==========================================================================
+   DỰ ÁN: WEBSITE NỘI THẤT CAO CẤP NHÀ XINH (ĐỒ ÁN WEB)
+   Kiến trúc: Chuẩn BEM (Block - Element - Modifier) với tiền tố 'nx-'
+   Tiêu chuẩn: CSS3 Hiện đại, Responsive 4 cấp độ, CSS Variables
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
+
+/* --- 1. HỆ THỐNG BIẾN TOÀN CỤC (DESIGN TOKENS) --- */
+:root {
+  /* Bảng màu nhận diện thương hiệu */
+  --nx-color-primary: #121212;
+  --nx-color-primary-rgb: 18, 18, 18;
+  --nx-color-hover: #333333;
+  --nx-color-accent: #c49a6c;
+  --nx-color-accent-hover: #b08556;
+  --nx-color-bg: #ffffff;
+  --nx-color-bg-alt: #f0f0e6;
+  --nx-color-bg-light: #f9f9f9;
+  --nx-color-text: #222222;
+  --nx-color-text-muted: #777777;
+  --nx-color-border: #e8e8e8;
+  --nx-color-footer: #181818;
+  --nx-color-white: #ffffff;
+  --nx-color-success: #2e7d32;
+
+  /* Typography */
+  --nx-font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --nx-font-size-base: 14px;
+  --nx-line-height: 1.6;
+  --nx-tracking-wide: 1.5px;
+  --nx-tracking-widest: 2.5px;
+
+  /* Layout & Spacing */
+  --nx-container-max: 1360px;
+  --nx-header-height: 80px;
+  --nx-topbar-height: 38px;
+  --nx-radius-sm: 2px;
+  --nx-radius-md: 4px;
+
+  /* Hiệu ứng chuyển động & Đổ bóng */
+  --nx-transition-fast: all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --nx-transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  --nx-shadow-subtle: 0 4px 20px rgba(0, 0, 0, 0.05);
+  --nx-shadow-dropdown: 0 14px 40px rgba(0, 0, 0, 0.15);
+  --nx-shadow-modal: 0 25px 60px rgba(0, 0, 0, 0.35);
+}
+
+/* --- 2. RESET & BASE ELEMENTS --- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: var(--nx-font-size-base);
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--nx-font-family);
+  color: var(--nx-color-text);
+  background-color: var(--nx-color-bg);
+  line-height: var(--nx-line-height);
+  font-weight: 400;
+  overflow-x: hidden;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: var(--nx-transition-fast);
+}
+
+ul, ol {
+  list-style: none;
+}
+
+button, input, select, textarea {
+  font: inherit;
+  color: inherit;
+  border: none;
+  background: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+/* --- 3. THANH TIẾN TRÌNH CUỘN TRANG (SCROLL PROGRESS BAR) --- */
+.nx-scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(to right, var(--nx-color-accent), var(--nx-color-primary));
+  width: 0%;
+  z-index: 9999;
+  transition: width 0.1s ease-out;
+}
+
+/* --- 4. CÁC LỚP TIỆN ÍCH DÙNG CHUNG (UTILITIES) --- */
+.nx-container, .container {
+  width: 100%;
+  max-width: var(--nx-container-max);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+.nx-text-center, .text-center { text-align: center; }
+.nx-text-uppercase, .text-uppercase { text-transform: uppercase; }
+
+.nx-section-header, .section-header {
+  margin-bottom: 40px;
+}
+
+.nx-section-header__subtitle, .section-subtitle {
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: var(--nx-tracking-widest);
+  text-transform: uppercase;
+  color: var(--nx-color-text-muted);
+  margin-bottom: 8px;
+}
+
+.nx-section-header__title, .section-title {
+  font-size: 1.85rem;
+  font-weight: 500;
+  letter-spacing: var(--nx-tracking-wide);
+  text-transform: uppercase;
+  color: var(--nx-color-primary);
+  position: relative;
+  display: inline-block;
+}
+
+.nx-section-header__title::after, .section-title::after {
+  content: '';
+  display: block;
+  width: 50px;
+  height: 2px;
+  background-color: var(--nx-color-primary);
+  margin: 12px auto 0;
+}
+
+/* Nút bấm (Buttons) */
+.nx-btn, .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 28px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: var(--nx-tracking-wide);
+  text-transform: uppercase;
+  border-radius: var(--nx-radius-sm);
+  transition: var(--nx-transition-smooth);
+}
+
+.nx-btn--primary, .btn-primary {
+  background-color: var(--nx-color-primary);
+  color: var(--nx-color-white);
+  border: 1px solid var(--nx-color-primary);
+}
+
+.nx-btn--primary:hover, .btn-primary:hover {
+  background-color: var(--nx-color-hover);
+  border-color: var(--nx-color-hover);
+  color: var(--nx-color-white);
+  transform: translateY(-2px);
+}
+
+.nx-btn--outline, .btn-outline {
+  background-color: transparent;
+  color: var(--nx-color-primary);
+  border: 1px solid var(--nx-color-primary);
+}
+
+.nx-btn--outline:hover, .btn-outline:hover {
+  background-color: var(--nx-color-primary);
+  color: var(--nx-color-white);
+  transform: translateY(-2px);
+}
+
+.nx-btn--white, .btn-white {
+  background-color: var(--nx-color-white);
+  color: var(--nx-color-primary);
+  border: 1px solid var(--nx-color-white);
+}
+
+.nx-btn--white:hover, .btn-white:hover {
+  background-color: transparent;
+  color: var(--nx-color-white);
+}
+
+/* --- 5. TOPBAR --- */
+.nx-topbar, .topbar {
+  background-color: #f7f7f7;
+  border-bottom: 1px solid var(--nx-color-border);
+  font-size: 0.78rem;
+  color: #555555;
+  height: var(--nx-topbar-height);
+  display: flex;
+  align-items: center;
+}
+
+.nx-topbar__inner, .topbar .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.nx-topbar__contacts, .topbar-contact {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+
+.nx-topbar__contacts a, .topbar-contact a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.nx-topbar__contacts a:hover, .topbar-contact a:hover {
+  color: var(--nx-color-accent);
+}
+
+.nx-topbar__promo, .topbar-message {
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+.nx-topbar__links, .topbar-links {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* --- 6. HEADER CHÍNH & THANH ĐIỀU HƯỚNG --- */
+.nx-header, .header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: var(--nx-color-white);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  transition: var(--nx-transition-fast);
+  width: 100%;
+}
+
+.nx-header.is-scrolled, .header.is-scrolled {
+  box-shadow: var(--nx-shadow-subtle);
+}
+
+.nx-header__inner, .header-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--nx-header-height);
+  width: 100%;
+  max-width: var(--nx-container-max);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.nx-brand, .brand-logo {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.nx-brand__logo, .brand-logo img {
+  height: 48px;
+  width: auto;
+}
+
+/* Navigation List */
+.nx-nav, .main-nav {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.nx-nav__list, .nav-list {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 100%;
+  gap: 24px;
+  margin: 0;
+  padding: 0;
+}
+
+.nx-nav__item, .nav-item {
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+/* Phân biệt: Item chứa Mega Menu thì position static để căn theo header */
+.nx-nav__item.has-mega-menu,
+.nx-nav__item:has(.nx-mega-menu),
+.nav-item:has(.mega-menu-wrapper) {
+  position: static !important;
+}
+
+.nx-nav__link, .nav-link {
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--nx-color-text);
+  padding: 10px 0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  position: relative;
+}
+
+.nx-nav__link::after, .nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--nx-color-primary);
+  transition: width 0.3s ease;
+}
+
+.nx-nav__item:hover > .nx-nav__link::after,
+.nx-nav__item.is-active > .nx-nav__link::after,
+.nav-item:hover > .nav-link::after,
+.nav-item.active > .nav-link::after {
+  width: 100%;
+}
+
+.nx-nav__link svg, .nav-link svg {
+  width: 12px;
+  height: 12px;
+  fill: currentColor;
+  transition: transform 0.25s ease;
+}
+
+.nx-nav__item:hover > .nx-nav__link svg,
+.nav-item:hover > .nav-link svg {
+  transform: rotate(180deg);
+}
+
+/* Dropdown Menu */
+.nx-dropdown, .dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: var(--nx-color-white);
+  box-shadow: var(--nx-shadow-dropdown);
+  border-top: 1px solid var(--nx-color-border);
+  min-width: 230px;
+  padding: 16px 0;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: var(--nx-transition-fast);
+  z-index: 1050;
+}
+
+.nx-nav__item:hover > .nx-dropdown,
+.nav-item:hover > .dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.nx-dropdown__link, .dropdown-link {
+  display: block;
+  padding: 8px 24px;
+  font-size: 0.82rem;
+  color: #444;
+}
+
+.nx-dropdown__link:hover, .dropdown-link:hover {
+  background-color: #f7f7f7;
+  color: var(--nx-color-primary);
+  padding-left: 28px;
+}
+
+/* Mega Menu Toàn màn hình - Căn giữa chuẩn & Nền trắng vững chắc */
+.nx-mega-menu, .mega-menu-wrapper {
+  position: absolute;
+  top: 100%;
+  left: 24px;
+  right: 24px;
+  width: calc(100% - 48px);
+  max-width: calc(var(--nx-container-max) - 48px);
+  margin: 0 auto;
+  background-color: #ffffff;
+  box-shadow: var(--nx-shadow-dropdown);
+  border-top: 1px solid var(--nx-color-border);
+  padding: 36px 36px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: var(--nx-transition-fast);
+  z-index: 1050;
+  box-sizing: border-box;
+}
+
+.nx-nav__item:hover .nx-mega-menu,
+.nav-item:hover .mega-menu-wrapper {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.nx-mega-menu__grid, .mega-menu-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr) 1.6fr;
+  gap: 18px;
+}
+
+.nx-mega-column__title, .mega-column-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--nx-color-primary);
+  letter-spacing: 0.5px;
+  margin-bottom: 14px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--nx-color-border);
+}
+
+.nx-mega-column__list li, .mega-column-list li {
+  margin-bottom: 8px;
+}
+
+.nx-mega-column__list a, .mega-column-list a {
+  font-size: 0.8rem;
+  color: #666;
+}
+
+.nx-mega-column__list a:hover, .mega-column-list a:hover {
+  color: var(--nx-color-primary);
+  font-weight: 500;
+  padding-left: 4px;
+}
+
+.nx-mega-featured, .mega-featured-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--nx-radius-sm);
+  background-color: #f5f5f5;
+}
+
+.nx-mega-featured img, .mega-featured-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.nx-mega-featured:hover img, .mega-featured-card:hover img {
+  transform: scale(1.05);
+}
+
+.nx-mega-featured__overlay, .mega-featured-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.75) 0%, transparent 70%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 20px;
+  color: var(--nx-color-white);
+}
+
+/* Header Utilities */
+.nx-header__actions, .header-actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.nx-search-form, .search-box {
+  position: relative;
+  width: 210px;
+}
+
+.nx-search-form__input, .search-input {
+  width: 100%;
+  height: 36px;
+  padding: 6px 36px 6px 14px;
+  font-size: 0.8rem;
+  border: 1px solid var(--nx-color-border);
+  border-radius: 20px;
+  background-color: #fafafa;
+  transition: var(--nx-transition-fast);
+}
+
+.nx-search-form__input:focus, .search-input:focus {
+  outline: none;
+  border-color: var(--nx-color-primary);
+  background-color: var(--nx-color-white);
+}
+
+.nx-search-form__btn, .search-btn {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #666;
+  display: flex;
+}
+
+.nx-icon-btn, .header-icon-btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--nx-color-primary);
+  padding: 8px;
+}
+
+.nx-icon-btn:hover, .header-icon-btn:hover {
+  color: var(--nx-color-accent);
+}
+
+.nx-badge, .badge-count {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  background-color: var(--nx-color-primary);
+  color: var(--nx-color-white);
+  font-size: 0.65rem;
+  font-weight: 700;
+  min-width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nx-hamburger, .menu-toggle-btn {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  padding: 8px;
+}
+
+.nx-hamburger span, .menu-toggle-btn span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background-color: var(--nx-color-primary);
+}
+
+/* --- 7. HERO SLIDER BANNER --- */
+.nx-hero, .hero-slider-section {
+  position: relative;
+  width: 100%;
+  height: calc(85vh - var(--nx-header-height));
+  min-height: 520px;
+  max-height: 780px;
+  overflow: hidden;
+  background-color: #111;
+}
+
+.nx-hero__slide, .slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.8s ease-in-out, visibility 0.8s ease-in-out;
+  background-size: cover;
+  background-position: center;
+}
+
+.nx-hero__slide.is-active, .slide.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.nx-hero__overlay, .slide-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0.2) 60%, rgba(0, 0, 0, 0.1) 100%);
+  display: flex;
+  align-items: center;
+}
+
+.nx-hero__content, .slide-content {
+  max-width: 650px;
+  color: var(--nx-color-white);
+  transform: translateY(20px);
+  transition: transform 0.8s ease;
+}
+
+.nx-hero__slide.is-active .nx-hero__content,
+.slide.active .slide-content {
+  transform: translateY(0);
+}
+
+.nx-hero__tag, .slide-tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: var(--nx-tracking-widest);
+  text-transform: uppercase;
+  color: var(--nx-color-accent);
+  margin-bottom: 12px;
+}
+
+.nx-hero__title, .slide-title {
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: var(--nx-tracking-wide);
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.nx-hero__desc, .slide-desc {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 28px;
+}
+
+.nx-hero__arrow, .slider-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  color: var(--nx-color-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(4px);
+  z-index: 10;
+  transition: var(--nx-transition-fast);
+}
+
+.nx-hero__arrow:hover, .slider-arrow:hover {
+  background: var(--nx-color-white);
+  color: var(--nx-color-primary);
+}
+
+.nx-hero__arrow--prev, .slider-arrow.prev { left: 30px; }
+.nx-hero__arrow--next, .slider-arrow.next { right: 30px; }
+
+.nx-hero__dots, .slider-dots {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  z-index: 10;
+}
+
+.nx-hero__dot, .slider-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+  transition: var(--nx-transition-fast);
+}
+
+.nx-hero__dot.is-active, .slider-dot.active {
+  width: 30px;
+  border-radius: 8px;
+  background: var(--nx-color-white);
+}
+
+/* --- 8. KHỐI 3 DANH MỤC TIÊU ĐIỂM --- */
+.nx-category-feature, .categories-section {
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+.nx-category-feature__grid, .category-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.nx-category-feature__item, .category-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--nx-radius-sm);
+  aspect-ratio: 3 / 4;
+  background-color: #f7f7f7;
+}
+
+.nx-category-feature__item img, .category-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nx-category-feature__item:hover img, .category-card:hover img {
+  transform: scale(1.06);
+}
+
+.nx-category-feature__overlay, .category-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.6) 0%, transparent 60%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 30px;
+  color: var(--nx-color-white);
+  text-align: center;
+  align-items: center;
+}
+
+.nx-category-feature__title, .category-card-title {
+  font-size: 1.5rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: var(--nx-tracking-wide);
+  margin-bottom: 8px;
+}
+
+/* --- 9. BỘ LỌC TƯƠNG TÁC (TABS) & SẢN PHẨM MỚI --- */
+.nx-products-section, .products-section {
+  padding-top: 50px;
+  padding-bottom: 70px;
+}
+
+.nx-filter-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 36px;
+  flex-wrap: wrap;
+}
+
+.nx-filter-tab {
+  padding: 8px 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-radius: 20px;
+  border: 1px solid var(--nx-color-border);
+  color: var(--nx-color-text-muted);
+  background: var(--nx-color-white);
+  transition: var(--nx-transition-fast);
+}
+
+.nx-filter-tab:hover,
+.nx-filter-tab.is-active {
+  background-color: var(--nx-color-primary);
+  color: var(--nx-color-white);
+  border-color: var(--nx-color-primary);
+}
+
+/* Lưới Sản Phẩm: Hỗ trợ cả .nx-products-grid và .products-grid */
+.nx-products-grid, .products-grid {
+  display: grid !important;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 28px;
+  width: 100%;
+}
+
+.nx-card, .product-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--nx-color-white);
+  transition: var(--nx-transition-fast);
+  width: 100%;
+}
+
+.nx-card.is-hidden {
+  display: none !important;
+}
+
+.nx-card__thumb, .product-thumb-wrapper {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  background-color: #f8f8f8;
+  overflow: hidden;
+  margin-bottom: 14px;
+}
+
+.nx-card__thumb img, .product-thumb-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.nx-card:hover .nx-card__thumb img,
+.product-card:hover .product-thumb-wrapper img {
+  transform: scale(1.05);
+}
+
+.nx-card__badge, .product-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background-color: var(--nx-color-primary);
+  color: var(--nx-color-white);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  padding: 4px 8px;
+  text-transform: uppercase;
+  border-radius: var(--nx-radius-sm);
+  z-index: 2;
+}
+
+.nx-card__wishlist, .product-wishlist-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #888;
+  transition: var(--nx-transition-fast);
+  z-index: 2;
+}
+
+.nx-card__wishlist:hover,
+.nx-card__wishlist.is-active,
+.product-wishlist-btn:hover,
+.product-wishlist-btn.is-active {
+  color: #e53935;
+  background: var(--nx-color-white);
+}
+
+.nx-card__quickview, .product-quick-view {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.8);
+  color: var(--nx-color-white);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 10px;
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+}
+
+.nx-card:hover .nx-card__quickview,
+.product-card:hover .product-quick-view {
+  transform: translateY(0);
+}
+
+.nx-card__info, .product-info {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.nx-card__category, .product-cat {
+  font-size: 0.72rem;
+  color: var(--nx-color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+
+.nx-card__title, .product-title {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--nx-color-primary);
+  margin-bottom: 8px;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.nx-card__price, .product-price {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--nx-color-primary);
+  margin-bottom: 12px;
+}
+
+.nx-card__add-btn, .btn-add-cart {
+  width: 100%;
+  padding: 9px;
+  font-size: 0.75rem;
+  border: 1px solid var(--nx-color-primary);
+  color: var(--nx-color-primary);
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  transition: var(--nx-transition-fast);
+  margin-top: auto;
+}
+
+.nx-card:hover .nx-card__add-btn,
+.product-card:hover .btn-add-cart {
+  background-color: var(--nx-color-primary);
+  color: var(--nx-color-white);
+}
+
+/* --- 10. VỀ NHÀ XINH (STORY SECTION) --- */
+.nx-about, .about-section {
+  background-color: var(--nx-color-bg-alt);
+  padding: 80px 0;
+}
+
+.nx-about__grid, .about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.nx-about__title, .about-text h2 {
+  font-size: 2.2rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: var(--nx-tracking-wide);
+  color: var(--nx-color-primary);
+  margin-bottom: 24px;
+}
+
+.nx-about__desc, .about-text p {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: #444;
+  margin-bottom: 30px;
+}
+
+.nx-about__visual, .about-images {
+  position: relative;
+}
+
+.nx-about__visual img, .about-images-main {
+  width: 100%;
+  height: 480px;
+  object-fit: cover;
+  border-radius: var(--nx-radius-sm);
+  box-shadow: var(--nx-shadow-subtle);
+}
+
+.nx-about__badge, .about-badge {
+  position: absolute;
+  bottom: -24px;
+  left: -24px;
+  background-color: var(--nx-color-primary);
+  color: var(--nx-color-white);
+  padding: 24px 30px;
+  border-radius: var(--nx-radius-sm);
+  text-align: center;
+}
+
+.nx-about__badge-years, .about-badge .years {
+  font-size: 2.2rem;
+  font-weight: 700;
+  line-height: 1;
+  display: block;
+  margin-bottom: 4px;
+}
+
+/* --- 11. KHÔNG GIAN PHÒNG (ROOMS) --- */
+.nx-rooms, .rooms-section {
+  padding: 70px 0;
+}
+
+.nx-rooms__grid, .rooms-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.nx-room-card, .room-card {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-radius: var(--nx-radius-sm);
+  background-color: #eee;
+}
+
+.nx-room-card img, .room-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s ease;
+}
+
+.nx-room-card:hover img, .room-card:hover img {
+  transform: scale(1.08);
+}
+
+.nx-room-card__overlay, .room-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, transparent 60%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 24px;
+  color: var(--nx-color-white);
+}
+
+.nx-room-card__title, .room-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+}
+
+/* --- 12. DỊCH VỤ THIẾT KẾ NỘI THẤT --- */
+.nx-interior, .interior-design-section {
+  position: relative;
+  background: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)),
+              url('https://nhaxinh.com/wp-content/uploads/2026/07/nha-xinh-victoria-phong-khach-tong-quan-1536x1024.webp') center/cover no-repeat;
+  padding: 100px 0;
+  color: var(--nx-color-white);
+  text-align: center;
+}
+
+.nx-interior__box, .interior-design-content {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.nx-interior__title, .interior-design-content h2 {
+  font-size: 2.2rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: var(--nx-tracking-wide);
+  margin-bottom: 16px;
+}
+
+.nx-interior__desc, .interior-design-content p {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: #eee;
+  margin-bottom: 30px;
+}
+
+/* --- 13. GÓC CẢM HỨNG (EDITORIAL BLOG) --- */
+.nx-editorial, .editorial-section {
+  padding: 70px 0;
+  background-color: var(--nx-color-white);
+}
+
+.nx-editorial__grid, .editorial-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.nx-article, .editorial-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.nx-article__thumb, .editorial-thumb {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border-radius: var(--nx-radius-sm);
+  margin-bottom: 16px;
+}
+
+.nx-article__thumb img, .editorial-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.nx-article:hover .nx-article__thumb img,
+.editorial-card:hover .editorial-thumb img {
+  transform: scale(1.06);
+}
+
+.nx-article__meta, .editorial-meta {
+  font-size: 0.75rem;
+  color: var(--nx-color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+.nx-article__title, .editorial-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--nx-color-primary);
+  line-height: 1.45;
+  margin-bottom: 10px;
+}
+
+.nx-article__excerpt, .editorial-excerpt {
+  font-size: 0.85rem;
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 14px;
+}
+
+.nx-article__readmore {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--nx-color-primary);
+  cursor: pointer;
+  transition: color 0.25s ease, transform 0.25s ease;
+  width: fit-content;
+}
+
+.nx-article__readmore:hover {
+  color: #b89368;
+  transform: translateX(4px);
+}
+
+.article-open-link {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.25s ease;
+}
+
+.article-open-link:hover {
+  color: #b89368;
+}
+
+/* --- 14. SHOWROOM HERO & ĐỐI TÁC --- */
+.nx-showroom-banner, .showroom-banner-section {
+  position: relative;
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)),
+              url('https://nhaxinh.com/wp-content/uploads/2021/09/MT_Nha_Xinh-1200x800.webp') center/cover no-repeat;
+  padding: 110px 0;
+  color: var(--nx-color-white);
+  text-align: center;
+}
+
+.nx-showroom-banner__title, .showroom-banner-content h2 {
+  font-size: 2.3rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: var(--nx-tracking-wide);
+  margin-bottom: 14px;
+}
+
+.nx-brands, .brands-section {
+  padding: 40px 0;
+  border-top: 1px solid var(--nx-color-border);
+  background-color: #fafafa;
+}
+
+.nx-brands__grid, .brands-grid {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.nx-brands__item, .brand-item {
+  filter: grayscale(100%);
+  opacity: 0.6;
+  transition: var(--nx-transition-fast);
+  max-height: 40px;
+}
+
+.nx-brands__item:hover, .brand-item:hover {
+  filter: grayscale(0%);
+  opacity: 1;
+}
+
+/* --- 15. FOOTER --- */
+.nx-footer, .footer {
+  background-color: var(--nx-color-footer);
+  color: #bbb;
+  padding-top: 60px;
+  font-size: 0.85rem;
+}
+
+.nx-footer__grid, .footer-grid {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr 1fr 1.4fr;
+  gap: 40px;
+  padding-bottom: 50px;
+  border-bottom: 1px solid #333333;
+}
+
+.nx-footer__col-title, .footer-col-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--nx-color-white);
+  margin-bottom: 18px;
+  position: relative;
+  padding-bottom: 8px;
+}
+
+.nx-footer__col-title::after, .footer-col-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 30px;
+  height: 2px;
+  background-color: var(--nx-color-accent);
+}
+
+.nx-footer__links li, .footer-links-list li {
+  margin-bottom: 10px;
+}
+
+.nx-footer__links a, .footer-links-list a {
+  color: #aaa;
+}
+
+.nx-footer__links a:hover, .footer-links-list a:hover {
+  color: var(--nx-color-white);
+  padding-left: 4px;
+}
+
+.nx-footer__socials, .footer-socials {
+  display: flex;
+  gap: 16px;
+  margin: 16px 0;
+}
+
+.nx-newsletter__group, .newsletter-input-group {
+  display: flex;
+  margin-top: 12px;
+  margin-bottom: 14px;
+}
+
+.nx-newsletter__input, .newsletter-input {
+  flex: 1;
+  background: #2a2a2a;
+  border: 1px solid #444;
+  padding: 10px 14px;
+  font-size: 0.8rem;
+  color: var(--nx-color-white);
+  border-radius: var(--nx-radius-sm) 0 0 var(--nx-radius-sm);
+}
+
+.nx-newsletter__input:focus, .newsletter-input:focus {
+  outline: none;
+  border-color: var(--nx-color-accent);
+}
+
+.nx-newsletter__btn, .newsletter-btn {
+  background-color: var(--nx-color-accent);
+  color: var(--nx-color-white);
+  padding: 0 16px;
+  font-weight: 600;
+  border-radius: 0 var(--nx-radius-sm) var(--nx-radius-sm) 0;
+}
+
+.nx-footer__bottom, .footer-bottom {
+  padding: 24px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.78rem;
+  color: #777;
+}
+
+/* --- 16. MODALS (<dialog>) & MINI CART DRAWER --- */
+dialog {
+  border: none;
+  border-radius: var(--nx-radius-sm);
+  box-shadow: var(--nx-shadow-modal);
+  padding: 0;
+  margin: auto;
+  max-width: 90vw;
+  background: var(--nx-color-white);
+  color: var(--nx-color-text);
+  overflow: hidden;
+}
+
+dialog::backdrop {
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(3px);
+}
+
+.nx-dialog__header, .dialog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 24px;
+  border-bottom: 1px solid var(--nx-color-border);
+}
+
+.nx-dialog__title, .dialog-title {
+  font-size: 1.15rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.nx-dialog__close, .dialog-close-btn {
+  font-size: 1.5rem;
+  color: #666;
+  padding: 4px;
+  cursor: pointer;
+}
+
+.nx-dialog__body, .dialog-body {
+  padding: 24px;
+  max-height: 75vh;
+  overflow-y: auto;
+}
+
+/* Cart Drawer */
+.nx-drawer, .cart-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 380px;
+  max-width: 90vw;
+  background: var(--nx-color-white);
+  box-shadow: -5px 0 25px rgba(0, 0, 0, 0.15);
+  transform: translateX(100%);
+  transition: transform 0.35s ease;
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+}
+
+.nx-drawer.is-open, .cart-drawer.is-open {
+  transform: translateX(0);
+}
+
+.nx-drawer__header, .cart-drawer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--nx-color-border);
+}
+
+.nx-drawer__body, .cart-drawer-body {
+  flex: 1;
+  padding: 24px;
+  overflow-y: auto;
+}
+
+.nx-cart-item, .cart-item {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 18px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid #f0f0f0;
+  align-items: center;
+}
+
+.nx-cart-item__img, .cart-item-img {
+  width: 65px;
+  height: 65px;
+  object-fit: cover;
+  border-radius: var(--nx-radius-sm);
+}
+
+.nx-cart-item__info, .cart-item-info {
+  flex: 1;
+}
+
+.nx-cart-item__title, .cart-item-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.nx-cart-item__price, .cart-item-price {
+  font-size: 0.82rem;
+  color: var(--nx-color-primary);
+  font-weight: 600;
+}
+
+.nx-cart-item__qty-ctrl {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.nx-cart-item__btn {
+  width: 22px;
+  height: 22px;
+  background: #eee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  border-radius: 2px;
+}
+
+.nx-drawer__footer, .cart-drawer-footer {
+  padding: 20px 24px;
+  border-top: 1px solid var(--nx-color-border);
+  background: #fafafa;
+}
+
+.nx-drawer__overlay, .cart-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1999;
+  opacity: 0;
+  visibility: hidden;
+  transition: var(--nx-transition-fast);
+}
+
+.nx-drawer__overlay.is-open, .cart-overlay.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Floating Widgets */
+.nx-floating, .floating-widget {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 990;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.nx-floating__btn, .btn-float {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--nx-color-white);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transition: var(--nx-transition-fast);
+}
+
+.nx-floating__btn:hover, .btn-float:hover {
+  transform: scale(1.1);
+}
+
+.nx-floating__btn--zalo, .btn-zalo { background-color: #0068ff; }
+.nx-floating__btn--phone, .btn-phone { background-color: #25d366; }
+
+/* Toast */
+.nx-toast-box, .toast-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.nx-toast, .toast {
+  background: #222;
+  color: var(--nx-color-white);
+  padding: 12px 20px;
+  border-radius: var(--nx-radius-sm);
+  font-size: 0.85rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  border-left: 4px solid var(--nx-color-accent);
+  animation: nxSlideIn 0.3s ease;
+}
+
+@keyframes nxSlideIn {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+/* --- 17. RESPONSIVE MEDIA QUERIES --- */
+@media (max-width: 1200px) {
+  .nx-nav__list, .nav-list { gap: 16px; }
+  .nx-nav__link, .nav-link { font-size: 0.8rem; }
+  .nx-search-form, .search-box { width: 170px; }
+  .nx-products-grid, .products-grid { grid-template-columns: repeat(3, 1fr) !important; }
+}
+
+@media (max-width: 992px) {
+  .nx-topbar, .topbar { display: none; }
+  .nx-hamburger, .menu-toggle-btn { display: flex; }
+  .nx-nav, .main-nav {
+    position: fixed;
+    top: var(--nx-header-height);
+    left: 0; right: 0; bottom: 0;
+    background: var(--nx-color-white);
+    flex-direction: column;
+    padding: 24px;
+    transform: translateX(-100%);
+    transition: transform 0.35s ease;
+    overflow-y: auto;
+    z-index: 1000;
+  }
+  .nx-nav.is-open, .main-nav.is-open { transform: translateX(0); }
+  .nx-nav__list, .nav-list {
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    height: auto;
+    gap: 0;
+  }
+  .nx-nav__item, .nav-item {
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    border-bottom: 1px solid var(--nx-color-border);
+  }
+  .nx-nav__link, .nav-link {
+    width: 100%;
+    justify-content: space-between;
+    padding: 14px 0;
+  }
+  .nx-nav__link::after, .nav-link::after { display: none; }
+  .nx-dropdown, .dropdown-menu,
+  .nx-mega-menu, .mega-menu-wrapper {
+    position: static;
+    transform: none;
+    box-shadow: none;
+    border-top: none;
+    width: 100%;
+    padding: 12px 0 12px 16px;
+    display: none;
+  }
+  .nx-nav__item.is-expanded > .nx-dropdown,
+  .nx-nav__item.is-expanded > .nx-mega-menu,
+  .nav-item.is-expanded > .dropdown-menu,
+  .nav-item.is-expanded > .mega-menu-wrapper {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+  }
+  .nx-mega-menu__grid, .mega-menu-grid { grid-template-columns: 1fr 1fr; }
+  .nx-category-feature__grid, .category-grid,
+  .nx-about__grid, .about-grid,
+  .nx-footer__grid, .footer-grid { grid-template-columns: 1fr; gap: 36px; }
+  .nx-products-grid, .products-grid,
+  .nx-rooms__grid, .rooms-grid,
+  .nx-editorial__grid, .editorial-grid { grid-template-columns: repeat(2, 1fr) !important; }
+}
+
+@media (max-width: 576px) {
+  .nx-products-grid, .products-grid,
+  .nx-rooms__grid, .rooms-grid,
+  .nx-editorial__grid, .editorial-grid { grid-template-columns: 1fr !important; }
+  .nx-search-form, .search-box { display: none; }
+  .nx-hero, .hero-slider-section { height: 480px; }
+  .nx-hero__title, .slide-title { font-size: 1.5rem; }
+  .nx-footer__bottom, .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+}
+
+/* --- 18. LIVE SEARCH RESULTS DROPDOWN --- */
+.nx-search-results-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 320px;
+  background: var(--nx-color-white);
+  box-shadow: var(--nx-shadow-dropdown);
+  border: 1px solid var(--nx-color-border);
+  border-radius: var(--nx-radius-sm);
+  max-height: 340px;
+  overflow-y: auto;
+  z-index: 1200;
+  margin-top: 6px;
+}
+
+.nx-search-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border-bottom: 1px solid #f4f4f4;
+  transition: var(--nx-transition-fast);
+  cursor: pointer;
+}
+
+.nx-search-item:hover {
+  background-color: #f9f9f9;
+}
+
+.nx-search-item__img {
+  width: 45px;
+  height: 45px;
+  object-fit: cover;
+  border-radius: var(--nx-radius-sm);
+  flex-shrink: 0;
+}
+
+.nx-search-item__title {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--nx-color-primary);
+  margin-bottom: 2px;
+}
+
+.nx-search-item__price {
+  font-size: 0.75rem;
+  color: var(--nx-color-text-muted);
+  font-weight: 500;
+}

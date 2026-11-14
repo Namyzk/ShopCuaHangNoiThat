@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Liên Hệ & Hệ Thống Showroom | Nhà Xinh Hưng Yên</title>
+  <meta name="description" content="Hệ thống Showroom Nhà Xinh tại Hưng Yên: Ecopark Văn Giang, TP. Hưng Yên, Phố Nối. Đồ án 2 Phát triển Web - Sinh viên Phạm Trọng Nam, UTEHY.">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" type="image/png" href="images/logo.png">
+  <style>
+    .contact-hero {
+      position: relative;
+      background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)),
+                  url('https://nhaxinh.com/wp-content/uploads/2026/11/NhaXinhxRuNam9264.jpg') center/cover no-repeat;
+      padding: 85px 0 75px;
+      color: #fff;
+      text-align: center;
+    }
+    .contact-hero-tag {
+      font-size: 0.8rem;
+      letter-spacing: 2px;
+      color: #dfba8e;
+      text-transform: uppercase;
+      font-weight: 700;
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+    .contact-hero-title {
+      font-size: 2.2rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+    }
+    .contact-hero-desc {
+      max-width: 680px;
+      margin: 0 auto;
+      font-size: 0.95rem;
+      color: #ddd;
+      line-height: 1.6;
+    }
+
+    .contact-main-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      margin: 50px 0 60px;
+    }
+
+    .showroom-card {
+      background: #fafaf8;
+      border: 1px solid #ebeae5;
+      border-radius: 4px;
+      padding: 24px;
+      margin-bottom: 20px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .showroom-card::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: #c49a6c;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .showroom-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+      background: #fff;
+    }
+    .showroom-card:hover::before {
+      opacity: 1;
+    }
+
+    .showroom-card__tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #c49a6c;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+    }
+    .showroom-card__name {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: #111;
+    }
+    .showroom-card__info-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 10px;
+      font-size: 0.88rem;
+      color: #555;
+      line-height: 1.5;
+    }
+    .showroom-card__info-row svg {
+      flex-shrink: 0;
+      margin-top: 3px;
+      color: #c49a6c;
+    }
+
+    .contact-form-card {
+      background: #ffffff;
+      border: 1px solid #e0dfd8;
+      border-radius: 4px;
+      padding: 34px 30px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+    }
+    .contact-form-card__title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+    .contact-form-card__desc {
+      font-size: 0.86rem;
+      color: #666;
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+
+    .form-group-custom {
+      margin-bottom: 16px;
+    }
+    .form-group-custom label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: #333;
+    }
+    .form-group-custom input,
+    .form-group-custom select,
+    .form-group-custom textarea {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1px solid #ccc;
+      border-radius: 2px;
+      font-size: 0.88rem;
+      background: #fff;
+      font-family: inherit;
+      transition: border-color 0.2s ease;
+    }
+    .form-group-custom input:focus,
+    .form-group-custom select:focus,
+    .form-group-custom textarea:focus {
+      outline: none;
+      border-color: #111;
+    }
+
+    .map-section {
+      margin-bottom: 60px;
+    }
+    .map-container {
+      width: 100%;
+      height: 420px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+    }
+    .map-container iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .student-badge-contact {
+      background: linear-gradient(135deg, #232323, #111111);
+      color: #fff;
+      border-radius: 6px;
+      padding: 30px;
+      margin-bottom: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 30px;
+      border: 1px solid #3d3d3d;
+      box-shadow: 0 12px 35px rgba(0,0,0,0.12);
+    }
+
+    @media (max-width: 992px) {
+      .contact-main-grid {
+        grid-template-columns: 1fr;
+        gap: 35px;
+      }
+      .student-badge-contact {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Scroll Progress Indicator -->
+  <div class="nx-scroll-progress" aria-hidden="true"></div>
+
+  <!-- Top Bar -->
+  <aside class="nx-topbar" aria-label="Thông tin liên hệ">
+    <div class="nx-container nx-topbar__inner">
+      <div class="nx-topbar__contacts">
+        <a href="tel:0988125240"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg> Hotline: <strong>0988 125 240</strong></a>
+        <a href="#showrooms"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg> Showroom Hưng Yên</a>
+      </div>
+      <div class="nx-topbar__promo">Miễn phí giao hàng & lắp đặt tận nơi tại Hưng Yên & Ecopark, Phố Nối</div>
+      <div class="nx-topbar__links">
+        <a href="index.html">Trang chủ</a>
+        <a href="gioi-thieu.html">Giới thiệu</a>
+        <a href="category.html">Cửa hàng</a>
+        <a href="#" data-open-tracking>Tra cứu đơn hàng</a>
+        <a href="#" data-open-auth><span class="auth-user-label">Đăng nhập</span></a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Header -->
+  <header class="nx-header" role="banner">
+    <div class="nx-container nx-header__inner">
+      <a href="index.html" class="nx-brand" title="Nhà Xinh - Trang chủ">
+        <img src="images/logo.png" alt="Nhà Xinh" class="nx-brand__logo" width="160" height="48">
+      </a>
+      <nav class="nx-nav" role="navigation" aria-label="Menu chính">
+        <ul class="nx-nav__list">
+          <li class="nx-nav__item"><a href="category.html" class="nx-nav__link">Sản phẩm mới</a></li>
+          <li class="nx-nav__item"><a href="category.html" class="nx-nav__link">Sản phẩm</a></li>
+          <li class="nx-nav__item"><a href="category.html" class="nx-nav__link">Phòng</a></li>
+          <li class="nx-nav__item"><a href="category.html" class="nx-nav__link">Bộ sưu tập</a></li>
+          <li class="nx-nav__item"><a href="index.html#thiet-ke" class="nx-nav__link" data-open-consultation>Thiết kế nội thất</a></li>
+          <li class="nx-nav__item"><a href="gioi-thieu.html" class="nx-nav__link">Giới thiệu</a></li>
+          <li class="nx-nav__item is-active"><a href="lien-he.html" class="nx-nav__link">Liên hệ</a></li>
+        </ul>
+      </nav>
+      <div class="nx-header__actions">
+        <form class="nx-search-form" role="search">
+          <input type="search" class="nx-search-form__input" placeholder="Tìm sản phẩm..." aria-label="Tìm kiếm sản phẩm">
+          <button type="submit" class="nx-search-form__btn" aria-label="Nút tìm kiếm">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </button>
+        </form>
+
+        <button class="nx-icon-btn" data-open-wishlist aria-label="Danh sách yêu thích" title="Danh sách yêu thích">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          <span class="nx-badge wishlist-count-badge">0</span>
+        </button>
+
+        <button class="nx-icon-btn" data-open-cart aria-label="Giỏ hàng" title="Giỏ hàng của bạn">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          <span class="nx-badge cart-count-badge">0</span>
+        </button>
+
+        <button class="nx-icon-btn" data-open-auth aria-label="Tài khoản hội viên" title="Tài khoản / Đăng nhập">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </button>
+
+        <button class="nx-hamburger" aria-label="Mở menu di động">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="contact-hero">
+    <div class="nx-container">
+      <span class="contact-hero-tag">HỆ THỐNG PHÂN PHỐI & CHĂM SÓC KHÁCH HÀNG</span>
+      <h1 class="contact-hero-title">LIÊN HỆ VỚI NHÀ XINH HƯNG YÊN</h1>
+      <p class="contact-hero-desc">
+        Sẵn sàng lắng nghe và đồng hành kiến tạo không gian sống mơ ước của bạn. Ghé thăm hệ thống Showroom hoặc để lại thông tin để kiến trúc sư liên hệ tư vấn trong 15 phút.
+      </p>
+    </div>
+  </section>
+
+  <!-- Main Contact Content -->
+  <main class="nx-container" id="showrooms">
+    
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb" style="padding: 20px 0; font-size: 0.85rem; color: #888;" aria-label="Đường dẫn trang">
+      <a href="index.html" style="color: #666; text-decoration: none;">Trang chủ</a> <span style="margin: 0 6px;">/</span>
+      <strong style="color: #111;">Liên hệ & Hệ thống Showroom</strong>
+    </nav>
+
+    <!-- Contact Grid: Showroom Info (Left) + Contact Form (Right) -->
+    <div class="contact-main-grid">
+      
+      <!-- Cột Trái: Danh sách Showroom tại Hưng Yên -->
+      <div>
+        <h2 style="font-size: 1.35rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px;">
+          HỆ THỐNG SHOWROOM HƯNG YÊN
+        </h2>
+
+        <!-- Showroom 1: Flagship Ecopark -->
+        <article class="showroom-card">
+          <span class="showroom-card__tag">FLAGSHIP SHOWROOM 2.500 M²</span>
+          <h3 class="showroom-card__name">Nhà Xinh Mega Ecopark Văn Giang</h3>
+          <div class="showroom-card__info-row">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+            <span>Khu Đô Thị Ecopark, Xã Xuân Quan, Huyện Văn Giang, Tỉnh Hưng Yên (Cạnh công viên Hồ Thiên Nga)</span>
+          </div>
+          <div class="showroom-card__info-row">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+            <span>Hotline tư vấn: <strong style="color:#111;">0988 125 240</strong> &bull; Tổng đài: <strong style="color:#111;">(0221) 3868 686</strong></span>
+          </div>
+          <div class="showroom-card__info-row">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2C11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+            <span>Giờ mở cửa: <strong>08:30 – 21:00</strong> (Tất cả các ngày trong tuần, có bãi đỗ xe ô tô)</span>
+          </div>
+          <div class="showroom-card__info-row">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+            <span>Email tiếp nhận: <a href="mailto:phamtrongnam@gmail.com" style="color:#c49a6c; text-decoration:none; font-weight:600;">phamtrongnam@gmail.com</a></span>
+          </div>
+        </article>
+
+        <!-- Showroom 2: TP. Hưng Yên -->
+        <article class="showroom-card">
+          <span class="showroom-card__tag">TRUNG TÂM PHỐ HIẾN</span>
+          <h3 class="showroom-card__name">Nhà Xinh TP. Hưng Yên</h3>
+          <div class="showroom-card__info-row">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+            <span>188 Nguyễn Lương Bằng, Phường Hiến Nam, Thành phố Hưng Yên (Gần Quảng trường Nguyễn Văn Linh)</span>
+          </div>
+          <div class="showroom-card__info-row">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+            <span>Hotline: <strong style="color:#111;">0988 125 240</strong></span>
+          </div>
+          <div class="showroom-card__info-row">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2C11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+            <span>Giờ mở cửa: <strong>08:30 – 20:30</strong> hàng ngày</span>
+          </div>
+        </article>
+
+        <!-- Showroom 3: Phố Nối Mỹ Hào -->
+        <article class="showroom-card">
+          <span class="showroom-card__tag">TRUNG TÂM ĐÔ THỊ CÔNG NGHIỆP</span>
+          <h3 class="showroom-card__name">Nhà Xinh Phố Nối - Mỹ Hào</h3>
+          <div class="showroom-card__info-row">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+            <span>Tòa nhà Green Park, Phố Nối, Phường Bần Yên Nhân, Thị xã Mỹ Hào, Tỉnh Hưng Yên</span>
+          </div>
+          <div class="showroom-card__info-row">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+            <span>Hotline tư vấn nhanh: <strong style="color:#111;">0988 125 240</strong></span>
+          </div>
+          <div class="showroom-card__info-row">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2C11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+            <span>Giờ mở cửa: <strong>08:30 – 20:00</strong> (Tư vấn bản vẽ & phối màu tại chỗ)</span>
+          </div>
+        </article>
+
+      </div>
+
+      <!-- Cột Phải: Biểu mẫu gửi liên hệ & phản hồi -->
+      <div>
+        <div class="contact-form-card">
+          <h2 class="contact-form-card__title">GỬI YÊU CẦU & PHẢN HỒI</h2>
+          <p class="contact-form-card__desc">
+            Vui lòng điền thông tin bên dưới. Chuyên viên thiết kế của Nhà Xinh Hưng Yên sẽ phản hồi sớm nhất qua điện thoại hoặc email.
+          </p>
+
+          <form id="contact-feedback-form">
+            <div class="form-group-custom">
+              <label for="contact-name">Họ và tên của bạn *</label>
+              <input type="text" id="contact-name" name="name" placeholder="Ví dụ: Phạm Trọng Nam" required>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+              <div class="form-group-custom">
+                <label for="contact-phone">Số điện thoại liên hệ *</label>
+                <input type="tel" id="contact-phone" name="phone" placeholder="Ví dụ: 0988 125 240" required>
+              </div>
+              <div class="form-group-custom">
+                <label for="contact-email">Địa chỉ Email *</label>
+                <input type="email" id="contact-email" name="email" placeholder="phamtrongnam@gmail.com" required>
+              </div>
+            </div>
+
+            <div class="form-group-custom">
+              <label for="contact-topic">Nhu cầu cần hỗ trợ *</label>
+              <select id="contact-topic" name="topic" required>
+                <option value="Tư vấn thiết kế nội thất 3D">Tư vấn thiết kế nội thất 3D trọn gói</option>
+                <option value="Báo giá sản phẩm nội thất">Báo giá sản phẩm nội thất & ưu đãi</option>
+                <option value="Hỗ trợ bảo hành & giao hàng">Hỗ trợ tiến độ bảo hành & giao vận</option>
+                <option value="Đóng góp ý kiến dịch vụ">Đóng góp ý kiến về dịch vụ khách hàng</option>
+              </select>
+            </div>
+
+            <div class="form-group-custom">
+              <label for="contact-showroom">Showroom bạn thuận tiện ghé thăm *</label>
+              <select id="contact-showroom" name="showroom" required>
+                <option value="KĐT Ecopark Văn Giang">Showroom Mega Ecopark Văn Giang (Hưng Yên)</option>
+                <option value="TP. Hưng Yên (188 Nguyễn Lương Bằng)">Showroom TP. Hưng Yên (188 Nguyễn Lương Bằng)</option>
+                <option value="Phố Nối Mỹ Hào">Showroom Phố Nối - TX. Mỹ Hào (Hưng Yên)</option>
+              </select>
+            </div>
+
+            <div class="form-group-custom">
+              <label for="contact-message">Nội dung tin nhắn / Yêu cầu chi tiết *</label>
+              <textarea id="contact-message" name="message" rows="4" placeholder="Nhập diện tích căn hộ, phong cách yêu thích hoặc câu hỏi bạn cần giải đáp..." required></textarea>
+            </div>
+
+            <button type="submit" class="nx-btn nx-btn--primary" style="width: 100%; padding: 13px; font-weight: 700; font-size: 0.95rem; letter-spacing: 1px;">
+              GỬI YÊU CẦU CHO CHÚNG TÔI
+            </button>
+          </form>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Map Section: Bản đồ vị trí Flagship Ecopark Hưng Yên -->
+    <section class="map-section" aria-label="Bản đồ chỉ đường đến Showroom Nhà Xinh Hưng Yên">
+      <div style="margin-bottom: 14px; display: flex; justify-content: space-between; align-items: flex-end;">
+        <div>
+          <span style="font-size:0.75rem; font-weight:700; color:#c49a6c; text-transform:uppercase; letter-spacing:1px;">VỊ TRÍ ĐỊA LÝ TRỰC QUAN</span>
+          <h2 style="font-size: 1.25rem; font-weight: 700; margin: 2px 0 0; text-transform: uppercase;">
+            BẢN ĐỒ CHỈ ĐƯỜNG ĐẾN SHOWROOM ECOPARK VĂN GIANG (HƯNG YÊN)
+          </h2>
+        </div>
+        <a href="https://maps.google.com/?q=Ecopark+Van+Giang+Hung+Yen" target="_blank" rel="noopener" class="nx-btn nx-btn--outline" style="font-size:0.8rem; padding:6px 14px;">
+          Mở Google Maps &rarr;
+        </a>
+      </div>
+      <div class="map-container">
+        <iframe 
+          title="Google Map Ecopark Hưng Yên"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3725.6888463991253!2d105.92985837587786!3d20.965005889960295!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135afbf70a09e07%3A0xcfe81541f5a53e5e!2sKhu%20%C4%91%C3%B4%20th%E1%BB%8B%20Ecopark!5e0!3m2!1svi!2svn!4v1715690000000!5m2!1svi!2svn" 
+          width="100%" 
+          height="100%" 
+          style="border:0;" 
+          allowfullscreen="" 
+          loading="lazy" 
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+    </section>
+
+    <!-- Student & Academic Project Card Badge -->
+    <section class="student-badge-contact" aria-label="Thông tin sinh viên thực hiện đồ án">
+      <div>
+        <span style="font-size: 0.72rem; color: #dfba8e; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;">ĐỒ ÁN 2 - BỘ MÔN CÔNG NGHỆ THÔNG TIN</span>
+        <h3 style="font-size: 1.35rem; font-weight: 700; margin: 4px 0 8px;">XÂY DỰNG WEBSITE NỘI THẤT CAO CẤP NHÀ XINH HƯNG YÊN</h3>
+        <p style="color: #bbb; font-size: 0.88rem; line-height: 1.5; margin: 0;">
+          Đề tài phát triển hệ thống thương mại điện tử chuyên nghiệp theo mô hình O2O (Online to Offline), chuẩn Semantic HTML5, CSS BEM, Module ES6 và LocalStorage.
+        </p>
+      </div>
+      <div style="background: rgba(255,255,255,0.06); padding: 18px 24px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.12); flex-shrink: 0; min-width: 280px; text-align: left;">
+        <div style="font-size: 0.82rem; color: #aaa; margin-bottom: 4px;">Sinh viên thực hiện:</div>
+        <div style="font-size: 1.05rem; font-weight: 700; color: #dfba8e; margin-bottom: 6px;">Phạm Trọng Nam</div>
+        <div style="font-size: 0.82rem; color: #ddd;">Mã sinh viên: <strong>12524034</strong></div>
+        <div style="font-size: 0.82rem; color: #ddd;">Lớp: <strong>12524W.3</strong></div>
+        <div style="font-size: 0.82rem; color: #ddd; margin-top: 4px;">Đại học Sư phạm Kỹ thuật Hưng Yên (<strong>UTEHY</strong>)</div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==========================================================================
+       MODALS & DRAWERS
+       ========================================================================== -->
+  <!-- Cart Drawer -->
+  <aside id="cart-drawer" class="nx-drawer" aria-label="Giỏ hàng">
+    <div class="nx-drawer__header">
+      <h3 style="font-size:1rem; font-weight:700; text-transform:uppercase; letter-spacing:1px;">
+        Giỏ hàng (<span class="cart-count-badge">0</span>)
+      </h3>
+      <button class="nx-dialog__close" data-close-cart aria-label="Đóng giỏ hàng">&times;</button>
+    </div>
+    <div class="nx-drawer__body cart-drawer-body">
+      <p style="text-align:center; color:#888; padding:40px 0;">Giỏ hàng của bạn đang trống</p>
+    </div>
+    <div class="nx-drawer__footer">
+      <div style="display:flex; justify-content:space-between; margin-bottom:14px; font-weight:700;">
+        <span>Tổng thanh toán:</span>
+        <span class="cart-total-price">0 VND</span>
+      </div>
+      <a href="checkout.html" class="nx-btn nx-btn--primary" style="width:100%; text-align:center;">TIẾN HÀNH ĐẶT HÀNG</a>
+    </div>
+  </aside>
+  <div id="cart-overlay" class="nx-drawer__overlay" data-close-cart></div>
+
+  <!-- Wishlist Drawer -->
+  <aside id="wishlist-drawer" class="nx-drawer" aria-label="Danh sách yêu thích">
+    <div class="nx-drawer__header">
+      <h3 style="font-size:1rem; font-weight:700; text-transform:uppercase; letter-spacing:1px;">
+        Yêu thích (<span class="wishlist-count-badge">0</span>)
+      </h3>
+      <button class="nx-dialog__close" data-close-wishlist aria-label="Đóng">&times;</button>
+    </div>
+    <div class="nx-drawer__body wishlist-drawer-body">
+      <p style="text-align:center; color:#888; padding:40px 0;">Danh sách yêu thích đang trống</p>
+    </div>
+    <div class="nx-drawer__footer">
+      <a href="category.html" class="nx-btn nx-btn--outline" style="width:100%; text-align:center;">Tiếp tục xem sản phẩm</a>
+    </div>
+  </aside>
+  <div id="wishlist-overlay" class="nx-drawer__overlay" data-close-wishlist></div>
+
+  <!-- Order Tracking Modal -->
+  <dialog id="tracking-modal" aria-labelledby="modal-tracking-title" style="max-width:680px; width:92%; max-height:85vh; border-radius:4px; padding:0; border:none; box-shadow:0 20px 60px rgba(0,0,0,0.3);">
+    <div class="nx-dialog__header" style="padding:16px 24px; border-bottom:1px solid #eee; display:flex; justify-content:space-between; align-items:center;">
+      <h3 id="modal-tracking-title" style="font-size:1.05rem; font-weight:700; text-transform:uppercase; margin:0;">Tra Cứu Đơn Hàng & Bảo Hành Điện Tử</h3>
+      <button class="nx-dialog__close" data-close-tracking aria-label="Đóng" style="font-size:1.6rem; border:none; background:none; cursor:pointer;">&times;</button>
+    </div>
+    <div class="nx-dialog__body" style="padding:24px 28px 30px; overflow-y:auto;">
+      <p style="font-size:0.85rem; color:#666; margin-bottom:16px;">
+        Nhập <strong>Mã đơn hàng</strong> hoặc <strong>Số điện thoại</strong> để theo dõi trực tiếp trạng thái gia công và lộ trình giao vận tại Hưng Yên.
+      </p>
+      <form id="order-tracking-form" style="display:flex; gap:10px; margin-bottom:20px;">
+        <input type="text" id="tracking-code-input" class="form-control" placeholder="Nhập mã NX-2026-XXXX hoặc SĐT..." required style="flex:1; padding:10px 14px; border:1px solid #ccc; border-radius:2px; font-size:0.9rem;">
+        <button type="submit" class="nx-btn nx-btn--primary" style="padding:10px 22px; white-space:nowrap;">Tra cứu ngay</button>
+      </form>
+      <div id="tracking-result-box" style="display:none;"></div>
+    </div>
+  </dialog>
+
+  <!-- 3D Consultation Modal -->
+  <dialog id="consultation-modal" aria-labelledby="modal-consult-title" style="max-width:640px; width:92%; max-height:88vh; border-radius:4px; padding:0; border:none; box-shadow:0 20px 60px rgba(0,0,0,0.3);">
+    <div class="nx-dialog__header" style="padding:16px 24px; border-bottom:1px solid #eee; display:flex; justify-content:space-between; align-items:center;">
+      <div>
+        <span style="font-size:0.75rem; font-weight:700; color:#c49a6c; letter-spacing:1px; text-transform:uppercase;">DỊCH VỤ KIẾN TRÚC & NỘI THẤT</span>
+        <h3 id="modal-consult-title" style="font-size:1.15rem; font-weight:700; margin:2px 0 0;">ĐĂNG KÝ TƯ VẤN THIẾT KẾ 3D MIỄN PHÍ</h3>
+      </div>
+      <button class="nx-dialog__close" data-close-consultation aria-label="Đóng" style="font-size:1.6rem; border:none; background:none; cursor:pointer;">&times;</button>
+    </div>
+    <div class="nx-dialog__body" style="padding:24px 28px 30px; overflow-y:auto; max-height:calc(88vh - 75px);">
+      <p style="font-size:0.85rem; color:#666; margin-bottom:18px;">
+        Đội ngũ Kiến trúc sư Nhà Xinh Hưng Yên sẽ đến khảo sát hiện trạng công trình, lên bản vẽ mặt bằng 2D và phối cảnh 3D trực quan hoàn toàn miễn phí.
+      </p>
+      <form id="consultation-form">
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px;">
+          <div>
+            <label style="display:block; font-size:0.8rem; font-weight:600; margin-bottom:4px;">Họ và tên *</label>
+            <input type="text" name="client_name" class="form-control" placeholder="Phạm Trọng Nam" required style="width:100%; padding:9px 12px; border:1px solid #ccc; border-radius:2px;">
+          </div>
+          <div>
+            <label style="display:block; font-size:0.8rem; font-weight:600; margin-bottom:4px;">Số điện thoại *</label>
+            <input type="tel" name="client_phone" class="form-control" placeholder="0988 xxx xxx" required style="width:100%; padding:9px 12px; border:1px solid #ccc; border-radius:2px;">
+          </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px;">
+          <div>
+            <label style="display:block; font-size:0.8rem; font-weight:600; margin-bottom:4px;">Loại hình công trình *</label>
+            <select name="project_type" class="form-control" style="width:100%; padding:9px 12px; border:1px solid #ccc; border-radius:2px;" required>
+              <option value="Căn hộ chung cư">Căn hộ chung cư</option>
+              <option value="Biệt thự / Villa">Biệt thự / Villa cao cấp</option>
+              <option value="Nhà phố liền kề">Nhà phố liền kề</option>
+              <option value="Shophouse / Cafe">Shophouse / Quán cafe</option>
+            </select>
+          </div>
+          <div>
+            <label style="display:block; font-size:0.8rem; font-weight:600; margin-bottom:4px;">Khu vực dự án *</label>
+            <select name="project_location" class="form-control" style="width:100%; padding:9px 12px; border:1px solid #ccc; border-radius:2px;" required>
+              <option value="KĐT Ecopark Văn Giang">KĐT Ecopark Văn Giang (Hưng Yên)</option>
+              <option value="TP. Hưng Yên">Thành phố Hưng Yên</option>
+              <option value="TX. Mỹ Hào (Phố Nối)">Thị xã Mỹ Hào (Phố Nối)</option>
+              <option value="Hà Nội & Lân cận">Hà Nội & Các tỉnh lân cận</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="display:flex; gap:12px; justify-content:flex-end;">
+          <button type="button" class="nx-btn nx-btn--outline" data-close-consultation style="padding:10px 20px;">Hủy bỏ</button>
+          <button type="submit" class="nx-btn nx-btn--primary" style="padding:10px 28px;">GỬI YÊU CẦU TƯ VẤN</button>
+        </div>
+      </form>
+    </div>
+  </dialog>
+
+  <!-- Member Auth Modal -->
+  <dialog id="auth-modal" aria-labelledby="modal-auth-title" style="max-width:480px; width:92%; max-height:85vh; border-radius:4px; padding:0; border:none; box-shadow:0 20px 60px rgba(0,0,0,0.3);">
+    <div class="nx-dialog__header" style="padding:16px 20px; border-bottom:1px solid #eee; display:flex; justify-content:space-between; align-items:center;">
+      <h3 id="modal-auth-title" style="font-size:1.05rem; font-weight:700; text-transform:uppercase; margin:0;">Hội Viên Nhà Xinh</h3>
+      <button class="nx-dialog__close" data-close-auth aria-label="Đóng" style="font-size:1.6rem; border:none; background:none; cursor:pointer;">&times;</button>
+    </div>
+    <div class="nx-dialog__body" style="padding:20px 24px 30px;">
+      <div style="display:flex; border-bottom:2px solid #f0f0f0; margin-bottom:20px;">
+        <button type="button" id="tab-btn-login" class="is-active" style="flex:1; padding:10px; background:none; border:none; font-weight:700; font-size:0.9rem; cursor:pointer; border-bottom:2px solid #111; margin-bottom:-2px;">ĐĂNG NHẬP</button>
+        <button type="button" id="tab-btn-register" style="flex:1; padding:10px; background:none; border:none; font-weight:600; font-size:0.9rem; color:#888; cursor:pointer;">ĐĂNG KÝ</button>
+      </div>
+      <form id="form-login">
+        <div style="margin-bottom:14px;">
+          <label style="display:block; font-size:0.8rem; font-weight:600; margin-bottom:4px;">Email hoặc Số điện thoại *</label>
+          <input type="text" id="login-email" class="form-control" placeholder="phamtrongnam@gmail.com" required style="width:100%; padding:9px 12px; border:1px solid #ccc; border-radius:2px;">
+        </div>
+        <div style="margin-bottom:18px;">
+          <label style="display:block; font-size:0.8rem; font-weight:600; margin-bottom:4px;">Mật khẩu *</label>
+          <input type="password" id="login-password" class="form-control" placeholder="••••••••" required style="width:100%; padding:9px 12px; border:1px solid #ccc; border-radius:2px;">
+        </div>
+        <button type="submit" class="nx-btn nx-btn--primary" style="width:100%; padding:11px; margin-bottom:12px;">ĐĂNG NHẬP NGAY</button>
+      </form>
+    </div>
+  </dialog>
+
+  <!-- Footer -->
+  <footer class="nx-footer">
+    <div class="nx-container">
+      <div class="nx-footer__grid" style="display:grid; grid-template-columns: repeat(4, 1fr); gap: 30px; margin-bottom: 40px;">
+        <div>
+          <h4 style="font-size: 0.95rem; font-weight: 700; text-transform: uppercase; margin-bottom: 16px; color: #dfba8e;">NHÀ XINH HƯNG YÊN</h4>
+          <p style="color: #aaa; font-size: 0.85rem; line-height: 1.6; margin-bottom: 12px;">
+            Thương hiệu nội thất hàng đầu Việt Nam kiến tạo không gian sống tiện nghi, thanh lịch và đẳng cấp tại tỉnh Hưng Yên.
+          </p>
+          <p style="color: #888; font-size: 0.8rem;">
+            Hotline: <strong style="color: #fff;">0988 125 240</strong><br>
+            Email: <strong style="color: #fff;">phamtrongnam@gmail.com</strong>
+          </p>
+        </div>
+        <div>
+          <h4 style="font-size: 0.95rem; font-weight: 700; text-transform: uppercase; margin-bottom: 16px; color: #fff;">HỆ THỐNG SHOWROOM</h4>
+          <ul style="list-style: none; padding: 0; margin: 0; font-size: 0.85rem; line-height: 2; color: #aaa;">
+            <li>&bull; Mega Ecopark, H. Văn Giang, Hưng Yên</li>
+            <li>&bull; 188 Nguyễn Lương Bằng, TP. Hưng Yên</li>
+            <li>&bull; Tòa Green Park, Phố Nối, TX. Mỹ Hào</li>
+          </ul>
+        </div>
+        <div>
+          <h4 style="font-size: 0.95rem; font-weight: 700; text-transform: uppercase; margin-bottom: 16px; color: #fff;">DỊCH VỤ & CHÍNH SÁCH</h4>
+          <ul style="list-style: none; padding: 0; margin: 0; font-size: 0.85rem; line-height: 2; color: #aaa;">
+            <li>&bull; Thiết kế & thi công 3D trọn gói</li>
+            <li>&bull; Giao hàng & lắp đặt miễn phí Hưng Yên</li>
+            <li>&bull; Bảo hành chính hãng 5 năm</li>
+            <li>&bull; Bảo trì trọn đời tận nhà</li>
+          </ul>
+        </div>
+        <div>
+          <h4 style="font-size: 0.95rem; font-weight: 700; text-transform: uppercase; margin-bottom: 16px; color: #dfba8e;">ĐỒ ÁN PHÁT TRIỂN WEB</h4>
+          <div style="background: rgba(255,255,255,0.05); padding: 14px; border-radius: 4px; font-size: 0.82rem; color: #bbb; line-height: 1.6;">
+            <div>Sinh viên: <strong style="color: #fff;">Phạm Trọng Nam</strong></div>
+            <div>MSSV: <strong style="color: #fff;">12524034</strong></div>
+            <div>Lớp: <strong style="color: #fff;">12524W.3</strong></div>
+            <div>Khoa: <strong style="color: #fff;">Công nghệ Thông tin</strong></div>
+            <div>Trường: <strong style="color: #dfba8e;">ĐH SPKT Hưng Yên (UTEHY)</strong></div>
+          </div>
+        </div>
+      </div>
+      <div class="nx-text-center" style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 24px; padding-bottom: 10px;">
+        <p style="color: #777; font-size: 0.8rem; margin: 0;">
+          &copy; 2026 Nhà Xinh Hưng Yên. Phát triển bởi sinh viên Phạm Trọng Nam - MSSV 12524034 - ĐH Sư Phạm Kỹ Thuật Hưng Yên.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Thanh toán đơn hàng nội thất Nhà Xinh an toàn, nhanh chóng và bảo mật.">
+  <title>Thanh Toán Đơn Hàng | Nội Thất Nhà Xinh</title>
+  
+  <link rel="icon" type="image/png" href="images/logo.png">
+  <link rel="stylesheet" href="css/styles.css">
+  
+  <style>
+    .checkout-layout {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 40px;
+      padding: 40px 0 80px;
+    }
+
+    .checkout-card {
+      background: var(--nx-color-white);
+      border: 1px solid var(--nx-color-border);
+      border-radius: var(--nx-radius-sm);
+      padding: 28px;
+    }
+
+    .checkout-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--nx-color-border);
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: #444;
+    }
+
+    .form-control {
+      width: 100%;
+      height: 42px;
+      padding: 8px 14px;
+      border: 1px solid var(--nx-color-border);
+      border-radius: var(--nx-radius-sm);
+      font-size: 0.85rem;
+      transition: var(--nx-transition-fast);
+      background: #fafafa;
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--nx-color-primary);
+      background: var(--nx-color-white);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    /* Payment Methods */
+    .payment-option {
+      border: 1px solid var(--nx-color-border);
+      padding: 14px 18px;
+      border-radius: var(--nx-radius-sm);
+      margin-bottom: 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: var(--nx-transition-fast);
+    }
+
+    .payment-option:hover,
+    .payment-option.is-active {
+      border-color: var(--nx-color-primary);
+      background-color: #fafaf8;
+    }
+
+    .payment-option input[type="radio"] {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--nx-color-primary);
+    }
+
+    .payment-details {
+      display: none;
+      padding: 14px 0 6px 30px;
+      font-size: 0.82rem;
+      color: #666;
+      line-height: 1.6;
+    }
+
+    .payment-option.is-active .payment-details {
+      display: block;
+    }
+
+    /* Coupon Box */
+    .coupon-box {
+      display: flex;
+      gap: 10px;
+      margin-top: 18px;
+      padding-top: 18px;
+      border-top: 1px solid var(--nx-color-border);
+    }
+
+    .checkout-summary-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.88rem;
+      padding: 8px 0;
+      color: #555;
+    }
+
+    .checkout-summary-row.total-row {
+      border-top: 2px solid var(--nx-color-primary);
+      margin-top: 14px;
+      padding-top: 14px;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--nx-color-primary);
+    }
+
+    @media (max-width: 992px) {
+      .checkout-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Topbar -->
+  <aside class="nx-topbar">
+    <div class="nx-container nx-topbar__inner">
+      <div class="nx-topbar__contacts">
+        <a href="tel:0988125240"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg> Hotline: <strong>0988 125 240</strong></a>
+      </div>
+      <div class="nx-topbar__promo">Miễn phí giao hàng & lắp đặt tại Hưng Yên & KĐT Ecopark, Phố Nối</div>
+      <div class="nx-topbar__links">
+        <a href="index.html">&larr; Tiếp tục mua sắm</a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Header -->
+  <header class="nx-header">
+    <div class="nx-container nx-header__inner">
+      <a href="index.html" class="nx-brand">
+        <img src="images/logo.png" alt="Nhà Xinh" class="nx-brand__logo" width="160" height="48">
+      </a>
+      <div style="font-size:0.9rem; font-weight:600; text-transform:uppercase; letter-spacing:1px; color:#666;">
+        TIẾN HÀNH ĐẶT HÀNG & THANH TOÁN
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Checkout Container -->
+  <main class="nx-container">
+    <form id="checkout-form" class="checkout-layout" onsubmit="handlePlaceOrder(event)">
+      
+      <!-- Cột Trái: Thông tin giao hàng & Phương thức thanh toán -->
+      <div>
+        
+        <!-- 1. Thông tin người nhận -->
+        <div class="checkout-card" style="margin-bottom: 24px;">
+          <h2 class="checkout-title">1. Thông tin giao hàng</h2>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="full-name">Họ và tên *</label>
+              <input type="text" id="full-name" class="form-control" placeholder="Phạm Trọng Nam" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="phone-number">Số điện thoại *</label>
+              <input type="tel" id="phone-number" class="form-control" placeholder="0988 xxx xxx" required pattern="[0-9]{10,11}">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="email">Địa chỉ Email *</label>
+            <input type="email" id="email" class="form-control" placeholder="phamtrongnam@gmail.com" required>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="city">Tỉnh / Thành phố *</label>
+              <select id="city" class="form-control" required>
+                <option value="hy" selected>Tỉnh Hưng Yên</option>
+                <option value="hn">Hà Nội</option>
+                <option value="hcm">TP. Hồ Chí Minh</option>
+                <option value="dn">Đà Nẵng</option>
+                <option value="other">Tỉnh thành khác</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="district">Quận / Huyện *</label>
+              <input type="text" id="district" class="form-control" placeholder="TP. Hưng Yên, Huyện Văn Giang, TX. Mỹ Hào..." required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="address">Địa chỉ nhận hàng chi tiết *</label>
+            <input type="text" id="address" class="form-control" placeholder="Số nhà, tên đường, KĐT Ecopark / Hiến Nam..." required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="notes">Ghi chú giao hàng (Tùy chọn)</label>
+            <textarea id="notes" class="form-control" style="height: 70px; resize: none;" placeholder="Thời gian giao hàng thuận tiện, hướng dẫn gửi xe..."></textarea>
+          </div>
+
+        </div>
+
+        <!-- 2. Phương thức thanh toán -->
+        <div class="checkout-card">
+          <h2 class="checkout-title">2. Phương thức thanh toán</h2>
+          
+          <label class="payment-option is-active" onclick="selectPayment(this)">
+            <input type="radio" name="payment_method" value="cod" checked>
+            <div>
+              <strong>Thanh toán khi nhận hàng (COD)</strong>
+              <div class="payment-details">Quý khách thanh toán tiền mặt hoặc quẹt thẻ cho nhân viên giao vận Nhà Xinh khi đã kiểm tra và bàn giao sản phẩm tại nhà.</div>
+            </div>
+          </label>
+
+          <label class="payment-option" onclick="selectPayment(this)">
+            <input type="radio" name="payment_method" value="bank_transfer">
+            <div>
+              <strong>Chuyển khoản Ngân hàng (Quét mã VietQR)</strong>
+              <div class="payment-details">
+                Ngân hàng: <strong>Vietcombank - CN TP.HCM</strong><br>
+                Số tài khoản: <strong>0071000998877</strong><br>
+                Chủ tài khoản: <strong>CONG TY CO PHAN NOI THAT NHA XINH</strong><br>
+                Nội dung: <em>[Họ tên] - [SĐT] thanh toan don hang</em>
+              </div>
+            </div>
+          </label>
+
+          <label class="payment-option" onclick="selectPayment(this)">
+            <input type="radio" name="payment_method" value="card">
+            <div>
+              <strong>Thẻ ATM nội địa / Visa / Master / JCB</strong>
+              <div class="payment-details">Cổng thanh toán bảo mật Payoo / VNPAY.</div>
+            </div>
+          </label>
+
+        </div>
+
+      </div>
+
+      <!-- Cột Phải: Tóm tắt đơn hàng & Mã giảm giá -->
+      <div>
+        <div class="checkout-card" style="position: sticky; top: 100px;">
+          <h2 class="checkout-title">Đơn hàng của bạn</h2>
+          
+          <!-- Danh sách sản phẩm từ localStorage -->
+          <div id="checkout-items-list" style="margin-bottom: 20px; max-height: 280px; overflow-y: auto;">
+            <!-- Render dynamically -->
+          </div>
+
+          <!-- Coupon Voucher -->
+          <div class="coupon-box">
+            <input type="text" id="coupon-code" class="form-control" placeholder="Mã giảm giá (Thử: NHAXINH2026)" style="text-transform: uppercase;">
+            <button type="button" class="nx-btn nx-btn--outline" onclick="applyCoupon()" style="padding: 0 16px; font-size: 0.75rem; white-space: nowrap;">ÁP DỤNG</button>
+          </div>
+          <div id="coupon-alert" style="font-size: 0.78rem; margin-top: 6px; display: none;"></div>
+
+          <!-- Bảng tính tiền -->
+          <div style="margin-top: 20px; border-top: 1px solid var(--nx-color-border); padding-top: 14px;">
+            <div class="checkout-summary-row">
+              <span>Tạm tính:</span>
+              <span id="summary-subtotal">0 VND</span>
+            </div>
+            <div class="checkout-summary-row">
+              <span>Phí vận chuyển & lắp đặt:</span>
+              <span style="color: #2e7d32; font-weight: 600;">MIỄN PHÍ</span>
+            </div>
+            <div class="checkout-summary-row" id="discount-row" style="display: none; color: #d32f2f;">
+              <span>Giảm giá voucher (10%):</span>
+              <span id="summary-discount">-0 VND</span>
+            </div>
+            <div class="checkout-summary-row total-row">
+              <span>TỔNG THANH TOÁN:</span>
+              <span id="summary-total">0 VND</span>
+            </div>
+          </div>
+
+          <!-- Nút Đặt Hàng -->
+          <button type="submit" class="nx-btn nx-btn--primary" style="width: 100%; height: 50px; margin-top: 24px; font-size: 0.95rem;">
+            XÁC NHẬN ĐẶT HÀNG
+          </button>
+          <p style="font-size: 0.72rem; color: #888; text-align: center; margin-top: 10px;">
+            Bằng việc nhấn đặt hàng, bạn đồng ý với Điều khoản dịch vụ và Chính sách bảo hành của Nhà Xinh.
+          </p>
+
+        </div>
+      </div>
+
+    </form>
+  </main>
+
+  <!-- Dialog xác nhận đặt hàng thành công -->
+  <dialog id="success-modal" style="width: 520px; text-align: center; padding: 40px 30px;">
+    <div style="width: 64px; height: 64px; border-radius: 50%; background: #e8f5e9; color: #2e7d32; display: flex; align-items: center; justify-content: center; margin: 0 auto 18px;">
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+    </div>
+    <h3 style="font-size: 1.4rem; font-weight: 700; text-transform: uppercase; margin-bottom: 8px;">ĐẶT HÀNG THÀNH CÔNG!</h3>
+    <p style="font-size: 0.88rem; color: #555; margin-bottom: 14px;">
+      Cảm ơn quý khách đã tin tưởng lựa chọn nội thất <strong>Nhà Xinh Hưng Yên</strong>.
+    </p>
+    <div style="background: #f7f7f4; border: 1px dashed #c49a6c; padding: 12px; border-radius: 4px; margin-bottom: 24px;">
+      Mã đơn hàng của bạn: <strong id="order-code-display" style="font-size: 1.1rem; color: #111;">NX-2026-8892</strong><br>
+      <span style="font-size: 0.78rem; color: #666;">Chuyên viên chăm sóc khách hàng tại Hưng Yên sẽ liên hệ xác nhận trong vòng 15 phút.</span>
+    </div>
+    <a href="index.html" class="nx-btn nx-btn--primary" style="width: 100%;">Trở về trang chủ</a>
+  </dialog>
+
+  <!-- Footer đơn giản -->
+  <footer class="nx-footer" style="padding-top: 30px;">
+    <div class="nx-container nx-text-center" style="padding-bottom: 24px;">
+      <p style="color: #dfba8e; font-size: 0.85rem; font-weight: 600; margin-bottom: 6px;">Nhà Xinh Hưng Yên &bull; Hệ thống Showroom Ecopark & TP. Hưng Yên</p>
+      <p style="color: #aaa; font-size: 0.78rem;">&copy; 2026 Nhà Xinh Hưng Yên. Đồ án 2 - Sinh viên: <strong>Phạm Trọng Nam</strong> (MSSV: <strong>12524034</strong> - Lớp: <strong>12524W.3</strong>) &bull; UTEHY.</p>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+  <script>
+    let discountPercent = 0;
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderCheckoutItems();
+    });
+
+    function selectPayment(label) {
+      document.querySelectorAll('.payment-option').forEach(el => el.classList.remove('is-active'));
+      label.classList.add('is-active');
+      label.querySelector('input[type="radio"]').checked = true;
+    }
+
+    function renderCheckoutItems() {
+      const container = document.getElementById('checkout-items-list');
+      const subtotalEl = document.getElementById('summary-subtotal');
+      const totalEl = document.getElementById('summary-total');
+
+      const cart = JSON.parse(localStorage.getItem('nx_cart_items') || '[]');
+
+      if (cart.length === 0) {
+        container.innerHTML = `
+          <div style="text-align:center; padding: 20px 0; color: #888;">
+            <p>Giỏ hàng của bạn đang trống!</p>
+            <a href="category.html" class="nx-btn nx-btn--outline" style="margin-top:10px; font-size:0.75rem;">Mua sắm ngay</a>
+          </div>
+        `;
+        subtotalEl.textContent = '0 VND';
+        totalEl.textContent = '0 VND';
+        return;
+      }
+
+      let subtotal = 0;
+      container.innerHTML = cart.map(item => {
+        const num = parseInt(item.price.replace(/[^0-9]/g, '')) || 0;
+        subtotal += num * item.qty;
+        return `
+          <div style="display:flex; gap:12px; margin-bottom:14px; padding-bottom:14px; border-bottom:1px solid #f0f0f0; align-items:center;">
+            <img src="${item.img}" style="width:55px; height:55px; object-fit:cover; border-radius:2px;" alt="${item.title}">
+            <div style="flex:1;">
+              <div style="font-size:0.85rem; font-weight:600;">${item.title}</div>
+              <div style="font-size:0.78rem; color:#777;">Số lượng: ${item.qty} &times; ${item.price}</div>
+            </div>
+            <div style="font-size:0.85rem; font-weight:700;">${(num * item.qty).toLocaleString('vi-VN')} VND</div>
+          </div>
+        `;
+      }).join('');
+
+      updateTotals(subtotal);
+    }
+
+    function updateTotals(subtotal) {
+      const subtotalEl = document.getElementById('summary-subtotal');
+      const totalEl = document.getElementById('summary-total');
+      const discountRow = document.getElementById('discount-row');
+      const discountEl = document.getElementById('summary-discount');
+
+      subtotalEl.textContent = subtotal.toLocaleString('vi-VN') + ' VND';
+      const discountAmount = Math.round(subtotal * discountPercent);
+
+      if (discountPercent > 0) {
+        discountRow.style.display = 'flex';
+        discountEl.textContent = '-' + discountAmount.toLocaleString('vi-VN') + ' VND';
+      } else {
+        discountRow.style.display = 'none';
+      }
+
+      const finalTotal = Math.max(0, subtotal - discountAmount);
+      totalEl.textContent = finalTotal.toLocaleString('vi-VN') + ' VND';
+    }
+
+    function applyCoupon() {
+      const input = document.getElementById('coupon-code');
+      const alertEl = document.getElementById('coupon-alert');
+      const code = input.value.trim().toUpperCase();
+
+      if (code === 'NHAXINH2026') {
+        discountPercent = 0.10; // Giảm 10%
+        alertEl.style.display = 'block';
+        alertEl.style.color = '#2e7d32';
+        alertEl.textContent = 'Áp dụng mã NHAXINH2026 thành công: Giảm ngay 10%!';
+      } else {
+        discountPercent = 0;
+        alertEl.style.display = 'block';
+        alertEl.style.color = '#d32f2f';
+        alertEl.textContent = 'Mã giảm giá không hợp lệ. Hãy thử: NHAXINH2026';
+      }
+
+      // Re-calc
+      const cart = JSON.parse(localStorage.getItem('nx_cart_items') || '[]');
+      let subtotal = 0;
+      cart.forEach(it => {
+        const num = parseInt(it.price.replace(/[^0-9]/g, '')) || 0;
+        subtotal += num * it.qty;
+      });
+      updateTotals(subtotal);
+    }
+
+    function handlePlaceOrder(e) {
+      e.preventDefault();
+      const cart = JSON.parse(localStorage.getItem('nx_cart_items') || '[]');
+      if (cart.length === 0) {
+        alert('Giỏ hàng trống. Vui lòng chọn sản phẩm trước khi thanh toán!');
+        return;
+      }
+
+      const orderCode = 'NX-2026-' + Math.floor(1000 + Math.random() * 9000);
+      document.getElementById('order-code-display').textContent = orderCode;
+
+      // Lưu đơn hàng vào LocalStorage để hỗ trợ tra cứu tiến độ
+      const order = {
+        code: orderCode,
+        date: new Date().toLocaleDateString('vi-VN'),
+        name: document.getElementById('full-name').value || 'Phạm Trọng Nam',
+        phone: document.getElementById('phone-number').value || '0988 125 240',
+        email: document.getElementById('email').value || 'phamtrongnam@gmail.com',
+        address: document.getElementById('address').value + ', ' + document.getElementById('district').value + ', Hưng Yên',
+        total: document.getElementById('summary-total').textContent,
+        items: cart,
+        step: 2
+      };
+      const orders = JSON.parse(localStorage.getItem('nx_orders') || '[]');
+      orders.unshift(order);
+      localStorage.setItem('nx_orders', JSON.stringify(orders));
+
+      // Xóa giỏ hàng sau khi đặt thành công
+      localStorage.removeItem('nx_cart_items');
+      
+      const modal = document.getElementById('success-modal');
+      modal.showModal();
+    }
+  </script>
+</body>
+</html>
