@@ -75,6 +75,14 @@
    - Thông tin chi tiết hotline, giờ mở cửa của 3 showroom tại Hưng Yên.
    - Biểu mẫu tiếp nhận yêu cầu tư vấn 3D và phản hồi dịch vụ.
 
+9. **Hệ Thống 6 Trang Không Gian Nội Thất Theo Phòng**:
+   - **`phong-khach.html` (Phòng khách sang trọng)**: Sofa da Ý, bàn trà mặt đá, ghế thư giãn, giải pháp ánh sáng phòng khách.
+   - **`phong-an.html` (Phòng ăn ấm cúng)**: Bàn ăn kéo dài thông minh, ghế ăn bọc nỉ/da, tủ rượu & ly pha lê, hoa nghệ thuật Côte Noire.
+   - **`phong-ngu.html` (Phòng ngủ êm ái)**: Giường ngủ bọc đệm/gỗ tự nhiên, tab đầu giường, nệm lò xo túi 5 sao, tủ quần áo cánh kính.
+   - **`phong-lam-viec.html` (Phòng làm việc sáng tạo)**: Bàn làm việc công thái học nâng hạ, ghế giám đốc bọc da, kệ sách module kịch trần.
+   - **`tu-bep.html` (Tủ bếp công năng)**: Hệ tủ bếp chữ L/I chống ẩm, đảo bếp quầy bar đá Vicostone, phụ kiện Blum/Hafele thông minh.
+   - **`ngoai-that.html` (Ngoại thất & Sân vườn)**: Bàn ghế sân vườn nhôm đúc, ghế mây đan ban công Ecopark, xích đu thư giãn kháng nước UV.
+
 ---
 
 ## 💻 HƯỚNG DẪN KHỞI CHẠY
