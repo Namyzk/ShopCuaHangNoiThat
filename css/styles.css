@@ -296,9 +296,10 @@ button {
   flex-direction: row;
   align-items: center;
   height: 100%;
-  gap: 24px;
+  gap: 18px;
   margin: 0;
   padding: 0;
+  white-space: nowrap;
 }
 
 .nx-nav__item, .nav-item {
@@ -306,6 +307,7 @@ button {
   height: 100%;
   display: flex;
   align-items: center;
+  white-space: nowrap;
 }
 
 /* Phân biệt: Item chứa Mega Menu thì position static để căn theo header */
@@ -316,17 +318,18 @@ button {
 }
 
 .nx-nav__link, .nav-link {
-  font-size: 0.84rem;
+  font-size: 0.81rem;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.8px;
+  letter-spacing: 0.4px;
   color: #222222;
   padding: 12px 0;
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 4px;
   position: relative;
   text-decoration: none !important;
+  white-space: nowrap;
   transition: color 0.25s ease;
 }
 
@@ -492,11 +495,17 @@ button {
 .nx-header__actions, .header-actions {
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: 14px;
+  flex-shrink: 0;
 }
 
 .nx-search-form, .search-box {
   position: relative;
+  width: 175px;
+  transition: width 0.3s ease;
+}
+
+.nx-search-form:focus-within, .search-box:focus-within {
   width: 210px;
 }
 
