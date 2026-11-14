@@ -316,63 +316,64 @@ button {
 }
 
 .nx-nav__link, .nav-link {
-  font-size: 0.85rem;
+  font-size: 0.84rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.8px;
-  color: var(--nx-color-text);
-  padding: 10px 0;
+  color: #222222;
+  padding: 12px 0;
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 5px;
   position: relative;
+  text-decoration: none !important;
+  transition: color 0.25s ease;
 }
 
-.nx-nav__link::after, .nav-link::after {
-  content: '';
-  position: absolute;
-  bottom: 2px;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background-color: var(--nx-color-primary);
-  transition: width 0.3s ease;
-}
-
-.nx-nav__item:hover > .nx-nav__link::after,
-.nx-nav__item.is-active > .nx-nav__link::after,
-.nav-item:hover > .nav-link::after,
-.nav-item.active > .nav-link::after {
-  width: 100%;
+.nx-nav__link:hover,
+.nx-nav__item:hover > .nx-nav__link,
+.nx-nav__item.is-active > .nx-nav__link,
+.nav-link:hover,
+.nav-item:hover > .nav-link,
+.nav-item.active > .nav-link,
+.nav-item.is-active > .nav-link {
+  color: #ba8b59 !important;
+  text-decoration: none !important;
 }
 
 .nx-nav__link svg, .nav-link svg {
-  width: 12px;
-  height: 12px;
+  width: 10px;
+  height: 10px;
   fill: currentColor;
-  transition: transform 0.25s ease;
+  transition: transform 0.25s ease, fill 0.25s ease;
 }
 
 .nx-nav__item:hover > .nx-nav__link svg,
-.nav-item:hover > .nav-link svg {
+.nx-nav__item.is-active > .nx-nav__link svg,
+.nav-item:hover > .nav-link svg,
+.nav-item.is-active > .nav-link svg {
+  fill: #ba8b59;
   transform: rotate(180deg);
 }
 
-/* Dropdown Menu */
+/* Dropdown Menu (Chuẩn phong cách Nhà Xinh - Viền điểm nhấn vàng đồng bên phải) */
 .nx-dropdown, .dropdown-menu {
   position: absolute;
   top: 100%;
   left: 0;
-  background: var(--nx-color-white);
-  box-shadow: var(--nx-shadow-dropdown);
+  background: #ffffff;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   border-top: 1px solid var(--nx-color-border);
-  min-width: 230px;
-  padding: 16px 0;
+  border-right: 4px solid #8e7354;
+  min-width: 250px;
+  padding: 12px 0;
   opacity: 0;
   visibility: hidden;
-  transform: translateY(10px);
-  transition: var(--nx-transition-fast);
+  transform: translateY(8px);
+  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
   z-index: 1050;
+  list-style: none;
+  margin: 0;
 }
 
 .nx-nav__item:hover > .nx-dropdown,
@@ -384,14 +385,17 @@ button {
 
 .nx-dropdown__link, .dropdown-link {
   display: block;
-  padding: 8px 24px;
-  font-size: 0.82rem;
-  color: #444;
+  padding: 10px 24px;
+  font-size: 0.88rem;
+  color: #444444;
+  line-height: 1.5;
+  text-decoration: none !important;
+  transition: all 0.2s ease;
 }
 
 .nx-dropdown__link:hover, .dropdown-link:hover {
-  background-color: #f7f7f7;
-  color: var(--nx-color-primary);
+  background-color: #faf8f5;
+  color: #ba8b59 !important;
   padding-left: 28px;
 }
 

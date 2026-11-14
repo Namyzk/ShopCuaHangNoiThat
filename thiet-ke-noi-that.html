@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dịch Vụ Thiết Kế Nội Thất 3D Trọn Gói | Nhà Xinh Hưng Yên</title>
+  <meta name="description" content="Dịch vụ thiết kế và thi công nội thất trọn gói Nhà Xinh Hưng Yên: Phối cảnh 3D miễn phí, khảo sát công trình tận nơi tại Ecopark & TP. Hưng Yên. Đồ án 2 - Phạm Trọng Nam, UTEHY.">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" type="image/png" href="images/logo.png">
+  <style>
+    .design-hero {
+      background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)),
+                  url('https://nhaxinh.com/wp-content/uploads/2026/11/NhaXinhxRuNam9613.jpg') center/cover no-repeat;
+      padding: 90px 0 80px;
+      color: #fff;
+      text-align: center;
+      margin-bottom: 50px;
+    }
+    .design-hero-title {
+      font-size: 2.2rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .process-grid-5 {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 20px;
+      margin: 40px 0 60px;
+    }
+    .process-card {
+      background: #fafaf8;
+      border: 1px solid #ebeae5;
+      border-radius: 4px;
+      padding: 24px 18px;
+      text-align: center;
+      position: relative;
+    }
+    .process-num {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: #111;
+      color: #dfba8e;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.1rem;
+      margin: 0 auto 16px;
+    }
+    .pricing-grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+      margin: 40px 0 60px;
+    }
+    .pricing-card {
+      background: #fff;
+      border: 1px solid #e0dfd8;
+      border-radius: 4px;
+      padding: 34px 28px;
+      text-align: center;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .pricing-card.featured {
+      border-color: #c49a6c;
+      box-shadow: 0 10px 30px rgba(196,154,108,0.15);
+      transform: scale(1.03);
+    }
+    .pricing-card__badge {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #c49a6c;
+      color: #fff;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 4px 14px;
+      border-radius: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    @media (max-width: 992px) {
+      .process-grid-5 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .pricing-grid-3 {
+        grid-template-columns: 1fr;
+      }
+      .pricing-card.featured {
+        transform: none;
+      }
+    }
+    @media (max-width: 576px) {
+      .process-grid-5 {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Scroll Progress -->
+  <div class="nx-scroll-progress" aria-hidden="true"></div>
+
+  <!-- Top Bar -->
+  <aside class="nx-topbar" aria-label="Thông tin liên hệ">
+    <div class="nx-container nx-topbar__inner">
+      <div class="nx-topbar__contacts">
+        <a href="tel:0988125240"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg> Hotline: <strong>0988 125 240</strong></a>
+        <a href="lien-he.html#showrooms"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg> Showroom Hưng Yên</a>
+      </div>
+      <div class="nx-topbar__promo">Miễn phí giao hàng & lắp đặt tận nơi tại Hưng Yên & Ecopark, Phố Nối</div>
+      <div class="nx-topbar__links">
+        <a href="index.html">Trang chủ</a>
+        <a href="gioi-thieu.html">Giới thiệu</a>
+        <a href="#" data-open-tracking>Tra cứu đơn hàng</a>
+        <a href="#" data-open-auth><span class="auth-user-label">Đăng nhập</span></a>
+        <a href="lien-he.html">Liên hệ</a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Header -->
+  <header class="nx-header" role="banner">
+    <div class="nx-container nx-header__inner">
+      <a href="index.html" class="nx-brand">
+        <img src="images/logo.png" alt="Nhà Xinh" class="nx-brand__logo" width="160" height="48">
+      </a>
+      <nav class="nx-nav" role="navigation" aria-label="Menu chính">
+        <ul class="nx-nav__list">
+          <li class="nx-nav__item"><a href="category.html?filter=moi" class="nx-nav__link">Sản phẩm mới</a></li>
+          <li class="nx-nav__item has-dropdown has-mega-menu">
+            <a href="category.html" class="nx-nav__link" aria-haspopup="true">
+              Sản phẩm
+              <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+            </a>
+            <div class="nx-mega-menu">
+              <div class="nx-mega-menu__grid">
+                <div class="nx-mega-column">
+                  <h3 class="nx-mega-column__title">Sofa & Armchair</h3>
+                  <ul class="nx-mega-column__list">
+                    <li><a href="category.html">Sofa băng</a></li>
+                    <li><a href="category.html">Sofa góc</a></li>
+                    <li><a href="category.html">Armchair thư giãn</a></li>
+                    <li><a href="category.html">Sofa da Ý cao cấp</a></li>
+                  </ul>
+                </div>
+                <div class="nx-mega-column">
+                  <h3 class="nx-mega-column__title">Bàn & Ghế</h3>
+                  <ul class="nx-mega-column__list">
+                    <li><a href="category.html">Bàn nước / Bàn trà</a></li>
+                    <li><a href="category.html">Bàn ăn mở rộng</a></li>
+                    <li><a href="category.html">Ghế ăn bọc đệm</a></li>
+                  </ul>
+                </div>
+                <div class="nx-mega-column">
+                  <h3 class="nx-mega-column__title">Giường & Tủ</h3>
+                  <ul class="nx-mega-column__list">
+                    <li><a href="category.html">Giường bọc nỉ/da</a></li>
+                    <li><a href="category.html">Tủ đầu giường</a></li>
+                    <li><a href="category.html">Tủ Tivi hiện đại</a></li>
+                  </ul>
+                </div>
+                <div class="nx-mega-featured">
+                  <img src="https://nhaxinh.com/wp-content/uploads/2026/09/sofa-penny-2.webp" alt="Thiết kế">
+                  <div class="nx-mega-featured__overlay">
+                    <h4>THIẾT KẾ 3D</h4>
+                    <p>Khảo sát miễn phí tận nhà</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li class="nx-nav__item has-dropdown">
+            <a href="phong-khach.html" class="nx-nav__link" aria-haspopup="true">
+              Phòng
+              <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+            </a>
+            <ul class="nx-dropdown">
+              <li><a href="phong-khach.html" class="nx-dropdown__link">Phòng khách sang trọng</a></li>
+              <li><a href="phong-an.html" class="nx-dropdown__link">Phòng ăn ấm cúng</a></li>
+              <li><a href="phong-ngu.html" class="nx-dropdown__link">Phòng ngủ êm ái</a></li>
+              <li><a href="phong-lam-viec.html" class="nx-dropdown__link">Phòng làm việc sáng tạo</a></li>
+              <li><a href="tu-bep.html" class="nx-dropdown__link">Tủ bếp công năng</a></li>
+              <li><a href="ngoai-that.html" class="nx-dropdown__link">Ngoại thất & Sân vườn</a></li>
+            </ul>
+          </li>
+          <li class="nx-nav__item"><a href="bo-suu-tap.html" class="nx-nav__link">Bộ sưu tập</a></li>
+          <li class="nx-nav__item has-dropdown">
+            <a href="thuong-hieu.html" class="nx-nav__link" aria-haspopup="true">
+              Thương hiệu
+              <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+            </a>
+            <ul class="nx-dropdown">
+              <li><a href="thuong-hieu.html#calligaris" class="nx-dropdown__link">Calligaris (Ý)</a></li>
+              <li><a href="thuong-hieu.html#lazboy" class="nx-dropdown__link">La-Z-Boy (Mỹ)</a></li>
+              <li><a href="thuong-hieu.html#cote-noire" class="nx-dropdown__link">Côte Noire (Pháp)</a></li>
+              <li><a href="thuong-hieu.html#michael-aram" class="nx-dropdown__link">Michael Aram (Mỹ)</a></li>
+            </ul>
+          </li>
+          <li class="nx-nav__item is-active"><a href="thiet-ke-noi-that.html" class="nx-nav__link">Thiết kế nội thất</a></li>
+          <li class="nx-nav__item"><a href="goc-cam-hung.html" class="nx-nav__link">Góc cảm hứng</a></li>
+        </ul>
+      </nav>
+      <div class="nx-header__actions">
+        <form class="nx-search-form" role="search">
+          <input type="search" class="nx-search-form__input" placeholder="Tìm kiếm..." aria-label="Tìm kiếm">
+          <button type="submit" class="nx-search-form__btn" aria-label="Nút tìm kiếm"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
+        </form>
+        <button class="nx-icon-btn" data-open-wishlist aria-label="Yêu thích"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><span class="nx-badge wishlist-count-badge">0</span></button>
+        <button class="nx-icon-btn" data-open-cart aria-label="Giỏ hàng"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg><span class="nx-badge cart-count-badge">0</span></button>
+        <button class="nx-icon-btn" data-open-auth aria-label="Tài khoản"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Banner -->
+  <header class="design-hero">
+    <div class="nx-container">
+      <span style="font-size:0.8rem; letter-spacing:2px; color:#dfba8e; text-transform:uppercase; font-weight:700;">DỊCH VỤ KIẾN TRÚC & NỘI THẤT CAO CẤP</span>
+      <h1 class="design-hero-title">THIẾT KẾ NỘI THẤT 3D TRỌN GÓI</h1>
+      <p style="letter-spacing: 0.5px; color: #eee; max-width:680px; margin:0 auto 24px;">
+        Đồng hành cùng gia chủ từ bản vẽ mặt bằng, phối cảnh 3D sinh động đến thi công hoàn thiện chìa khóa trao tay tại tỉnh Hưng Yên.
+      </p>
+      <button class="nx-btn nx-btn--primary" data-open-consultation style="padding:12px 30px; font-weight:700;">ĐĂNG KÝ KHẢO SÁT MIỄN PHÍ</button>
+    </div>
+  </header>
+
+  <main class="nx-container">
+    
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb" style="padding: 10px 0 25px; font-size: 0.85rem; color: #888;" aria-label="Đường dẫn">
+      <a href="index.html" style="color: #666; text-decoration: none;">Trang chủ</a> <span style="margin: 0 6px;">/</span>
+      <strong style="color: #111;">Dịch vụ thiết kế nội thất</strong>
+    </nav>
+
+    <!-- 5-Step Process -->
+    <section>
+      <header class="nx-section-header nx-text-center">
+        <p class="nx-section-header__subtitle">QUY TRÌNH LÀM VIỆC CHUYÊN NGHIỆP</p>
+        <h2 class="nx-section-header__title">5 BƯỚC HIỆN THỰC HÓA TỔ ẤM</h2>
+      </header>
+
+      <div class="process-grid-5">
+        <div class="process-card">
+          <div class="process-num">1</div>
+          <h3 style="font-size:0.95rem; font-weight:700; margin-bottom:8px;">Tiếp nhận & Khảo sát</h3>
+          <p style="font-size:0.82rem; color:#666; margin:0; line-height:1.5;">KTS đến trực tiếp hiện trạng căn hộ tại Hưng Yên đo đạc và lắng nghe mong muốn.</p>
+        </div>
+        <div class="process-card">
+          <div class="process-num">2</div>
+          <h3 style="font-size:0.95rem; font-weight:700; margin-bottom:8px;">Mặt bằng 2D</h3>
+          <p style="font-size:0.82rem; color:#666; margin:0; line-height:1.5;">Lên layout phân chia công năng, luồng giao thông và vị trí kê đặt đồ chuẩn phong thủy.</p>
+        </div>
+        <div class="process-card">
+          <div class="process-num">3</div>
+          <h3 style="font-size:0.95rem; font-weight:700; margin-bottom:8px;">Phối cảnh 3D</h3>
+          <p style="font-size:0.82rem; color:#666; margin:0; line-height:1.5;">Dựng mô hình 3D chân thực về ánh sáng, màu sắc và vật liệu thực tế của Nhà Xinh.</p>
+        </div>
+        <div class="process-card">
+          <div class="process-num">4</div>
+          <h3 style="font-size:0.95rem; font-weight:700; margin-bottom:8px;">Dự toán minh bạch</h3>
+          <p style="font-size:0.82rem; color:#666; margin:0; line-height:1.5;">Bóc tách khối lượng chi tiết, cam kết không phát sinh chi phí trong suốt quá trình thi công.</p>
+        </div>
+        <div class="process-card">
+          <div class="process-num">5</div>
+          <h3 style="font-size:0.95rem; font-weight:700; margin-bottom:8px;">Lắp đặt & Bảo hành</h3>
+          <p style="font-size:0.82rem; color:#666; margin:0; line-height:1.5;">Bàn giao hoàn thiện chìa khóa trao tay, bảo hành chính hãng 5 năm và bảo trì trọn đời.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing Packages -->
+    <section>
+      <header class="nx-section-header nx-text-center">
+        <p class="nx-section-header__subtitle">BẢNG GIÁ DỊCH VỤ THAM KHẢO</p>
+        <h2 class="nx-section-header__title">GÓI THIẾT KẾ NỘI THẤT HƯNG YÊN</h2>
+      </header>
+
+      <div class="pricing-grid-3">
+        <div class="pricing-card">
+          <h3 style="font-size:1.15rem; font-weight:700; text-transform:uppercase; margin-bottom:6px;">CĂN HỘ CHUNG CƯ</h3>
+          <p style="color:#888; font-size:0.82rem; margin-bottom:14px;">Diện tích từ 50m² - 120m²</p>
+          <div style="font-size:1.8rem; font-weight:700; color:#111; margin-bottom:18px;">180.000 <span style="font-size:0.9rem; color:#888;">VNĐ/m²</span></div>
+          <p style="font-size:0.85rem; color:#555; line-height:1.8; margin-bottom:24px;">
+            &bull; Khảo sát đo đạc thực tế<br>
+            &bull; Bản vẽ 2D mặt bằng bố trí<br>
+            &bull; Phối cảnh 3D các phòng<br>
+            &bull; Miễn phí khi ký hợp đồng thi công
+          </p>
+          <button class="nx-btn nx-btn--outline" data-open-consultation style="width:100%;">Chọn gói này</button>
+        </div>
+
+        <div class="pricing-card featured">
+          <span class="pricing-card__badge">PHỔ BIẾN NHẤT</span>
+          <h3 style="font-size:1.15rem; font-weight:700; text-transform:uppercase; margin-bottom:6px; color:#c49a6c;">NHÀ PHỐ LIỀN KỀ</h3>
+          <p style="color:#888; font-size:0.82rem; margin-bottom:14px;">Diện tích từ 120m² - 250m²</p>
+          <div style="font-size:1.8rem; font-weight:700; color:#c49a6c; margin-bottom:18px;">220.000 <span style="font-size:0.9rem; color:#888;">VNĐ/m²</span></div>
+          <p style="font-size:0.85rem; color:#555; line-height:1.8; margin-bottom:24px;">
+            &bull; Tất cả quyền lợi gói chung cư<br>
+            &bull; Thiết kế trần thạch cao & đèn chiếu sáng<br>
+            &bull; Bản vẽ điện nước (MEP) chi tiết<br>
+            &bull; Giảm 100% phí thiết kế khi thi công
+          </p>
+          <button class="nx-btn nx-btn--primary" data-open-consultation style="width:100%;">Chọn gói này</button>
+        </div>
+
+        <div class="pricing-card">
+          <h3 style="font-size:1.15rem; font-weight:700; text-transform:uppercase; margin-bottom:6px;">BIỆT THỰ / VILLA</h3>
+          <p style="color:#888; font-size:0.82rem; margin-bottom:14px;">Diện tích từ 250m² trở lên</p>
+          <div style="font-size:1.8rem; font-weight:700; color:#111; margin-bottom:18px;">280.000 <span style="font-size:0.9rem; color:#888;">VNĐ/m²</span></div>
+          <p style="font-size:0.85rem; color:#555; line-height:1.8; margin-bottom:24px;">
+            &bull; Thiết kế cá nhân hóa chuyên biệt<br>
+            &bull; Phối cảnh sân vườn & tiểu cảnh ban công<br>
+            &bull; Giám sát tác giả KTS trưởng<br>
+            &bull; Bảo hành độc quyền VIP 5 năm
+          </p>
+          <button class="nx-btn nx-btn--outline" data-open-consultation style="width:100%;">Chọn gói này</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Modals & Drawers -->
+  <aside id="cart-drawer" class="nx-drawer"><div class="nx-drawer__header"><h3>Giỏ hàng (<span class="cart-count-badge">0</span>)</h3><button class="nx-dialog__close" data-close-cart>&times;</button></div><div class="nx-drawer__body cart-drawer-body"><p style="text-align:center; color:#888; padding:40px 0;">Giỏ hàng đang trống</p></div><div class="nx-drawer__footer"><div style="display:flex; justify-content:space-between; margin-bottom:14px; font-weight:700;"><span>Tổng:</span><span class="cart-total-price">0 VND</span></div><a href="checkout.html" class="nx-btn nx-btn--primary" style="width:100%; text-align:center;">THANH TOÁN</a></div></aside>
+  <div id="cart-overlay" class="nx-drawer__overlay" data-close-cart></div>
+
+  <aside id="wishlist-drawer" class="nx-drawer"><div class="nx-drawer__header"><h3>Yêu thích (<span class="wishlist-count-badge">0</span>)</h3><button class="nx-dialog__close" data-close-wishlist>&times;</button></div><div class="nx-drawer__body wishlist-drawer-body"><p style="text-align:center; color:#888; padding:40px 0;">Danh sách yêu thích đang trống</p></div><div class="nx-drawer__footer"><a href="category.html" class="nx-btn nx-btn--outline" style="width:100%; text-align:center;">Tiếp tục xem</a></div></aside>
+  <div id="wishlist-overlay" class="nx-drawer__overlay" data-close-wishlist></div>
+
+  <dialog id="tracking-modal" style="max-width:680px; width:92%; max-height:85vh; border-radius:4px; padding:0; border:none; box-shadow:0 20px 60px rgba(0,0,0,0.3);"><div class="nx-dialog__header" style="padding:16px 24px; border-bottom:1px solid #eee; display:flex; justify-content:space-between; align-items:center;"><h3 style="font-size:1.05rem; font-weight:700; text-transform:uppercase; margin:0;">Tra Cứu Đơn Hàng</h3><button class="nx-dialog__close" data-close-tracking>&times;</button></div><div class="nx-dialog__body" style="padding:24px 28px 30px;"><form id="order-tracking-form" style="display:flex; gap:10px; margin-bottom:20px;"><input type="text" id="tracking-code-input" class="form-control" placeholder="Mã NX-2026-XXXX hoặc SĐT..." required style="flex:1; padding:10px 14px; border:1px solid #ccc;"><button type="submit" class="nx-btn nx-btn--primary">Tra cứu</button></form><div id="tracking-result-box" style="display:none;"></div></div></dialog>
+
+  <dialog id="consultation-modal" style="max-width:640px; width:92%; max-height:88vh; border-radius:4px; padding:0; border:none; box-shadow:0 20px 60px rgba(0,0,0,0.3);"><div class="nx-dialog__header" style="padding:16px 24px; border-bottom:1px solid #eee; display:flex; justify-content:space-between; align-items:center;"><div><span style="font-size:0.75rem; font-weight:700; color:#c49a6c;">KIẾN TRÚC & NỘI THẤT</span><h3 style="font-size:1.15rem; font-weight:700; margin:2px 0 0;">ĐĂNG KÝ TƯ VẤN THIẾT KẾ 3D MIỄN PHÍ</h3></div><button class="nx-dialog__close" data-close-consultation>&times;</button></div><div class="nx-dialog__body" style="padding:24px 28px 30px;"><form id="consultation-form"><div style="display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px;"><div><label style="display:block; font-size:0.8rem; font-weight:600; margin-bottom:4px;">Họ và tên *</label><input type="text" name="client_name" class="form-control" placeholder="Phạm Trọng Nam" required style="width:100%; padding:9px 12px; border:1px solid #ccc;"></div><div><label style="display:block; font-size:0.8rem; font-weight:600; margin-bottom:4px;">Số điện thoại *</label><input type="tel" name="client_phone" class="form-control" placeholder="0988 xxx xxx" required style="width:100%; padding:9px 12px; border:1px solid #ccc;"></div></div><div style="display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px;"><div><label style="display:block; font-size:0.8rem; font-weight:600; margin-bottom:4px;">Loại công trình *</label><select name="project_type" class="form-control" style="width:100%; padding:9px 12px; border:1px solid #ccc;"><option value="Căn hộ chung cư">Căn hộ chung cư</option><option value="Biệt thự / Villa">Biệt thự / Villa</option><option value="Nhà phố liền kề">Nhà phố liền kề</option></select></div><div><label style="display:block; font-size:0.8rem; font-weight:600; margin-bottom:4px;">Khu vực dự án *</label><select name="project_location" class="form-control" style="width:100%; padding:9px 12px; border:1px solid #ccc;"><option value="KĐT Ecopark Văn Giang">KĐT Ecopark Văn Giang</option><option value="TP. Hưng Yên">TP. Hưng Yên</option><option value="TX. Mỹ Hào (Phố Nối)">TX. Mỹ Hào (Phố Nối)</option></select></div></div><div style="display:flex; gap:12px; justify-content:flex-end;"><button type="button" class="nx-btn nx-btn--outline" data-close-consultation>Hủy</button><button type="submit" class="nx-btn nx-btn--primary">GỬI YÊU CẦU</button></div></form></div></dialog>
+
+  <dialog id="auth-modal" style="max-width:480px; width:92%; max-height:85vh; border-radius:4px; padding:0; border:none; box-shadow:0 20px 60px rgba(0,0,0,0.3);"><div class="nx-dialog__header" style="padding:16px 20px; border-bottom:1px solid #eee; display:flex; justify-content:space-between; align-items:center;"><h3 style="font-size:1.05rem; font-weight:700; text-transform:uppercase; margin:0;">Hội Viên Nhà Xinh</h3><button class="nx-dialog__close" data-close-auth>&times;</button></div><div class="nx-dialog__body" style="padding:20px 24px 30px;"><div style="display:flex; border-bottom:2px solid #f0f0f0; margin-bottom:20px;"><button type="button" id="tab-btn-login" class="is-active" style="flex:1; padding:10px; background:none; border:none; font-weight:700; border-bottom:2px solid #111;">ĐĂNG NHẬP</button><button type="button" id="tab-btn-register" style="flex:1; padding:10px; background:none; border:none; color:#888;">ĐĂNG KÝ</button></div><form id="form-login"><div style="margin-bottom:14px;"><label style="display:block; font-size:0.8rem; font-weight:600; margin-bottom:4px;">Email hoặc SĐT *</label><input type="text" id="login-email" class="form-control" placeholder="phamtrongnam@gmail.com" required style="width:100%; padding:9px 12px; border:1px solid #ccc;"></div><div style="margin-bottom:18px;"><label style="display:block; font-size:0.8rem; font-weight:600; margin-bottom:4px;">Mật khẩu *</label><input type="password" id="login-password" class="form-control" placeholder="••••••••" required style="width:100%; padding:9px 12px; border:1px solid #ccc;"></div><button type="submit" class="nx-btn nx-btn--primary" style="width:100%; padding:11px;">ĐĂNG NHẬP NGAY</button></form></div></dialog>
+
+  <!-- Footer -->
+  <footer class="nx-footer">
+    <div class="nx-container nx-text-center" style="padding-bottom: 30px;">
+      <img src="images/logo-white.png" alt="Nhà Xinh" width="130" style="margin: 0 auto 16px;">
+      <p style="color: #dfba8e; font-size: 0.85rem; font-weight: 600; margin-bottom: 6px;">Nhà Xinh Hưng Yên &bull; Showroom Mega Ecopark Văn Giang & TP. Hưng Yên &bull; Hotline: 0988 125 240</p>
+      <p style="color: #aaa; font-size: 0.8rem;">&copy; 2026 Nhà Xinh Hưng Yên. Đồ án 2 - Sinh viên: <strong>Phạm Trọng Nam</strong> (MSSV: <strong>12524034</strong> - Lớp: <strong>12524W.3</strong>) &bull; UTEHY.</p>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

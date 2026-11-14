@@ -703,42 +703,42 @@ class ModalModule {
 
     const mockArticles = {
       "1": {
-        cat: "XU HƯỚNG THIẾT KẾ",
-        meta: "15 THÁNG 10, 2026 • KTS. ĐẶNG THANH TÙNG",
-        title: "Nghệ Thuật Phối Màu Trung Tính: Bí Quyết Tạo Chiều Sâu Cho Phòng Khách Hiện Đại",
+        cat: "BỘ SƯU TẬP",
+        meta: "15 THÁNG 10, 2026 • NHÀ XINH DESIGN TEAM",
+        title: "Bộ sưu tập Victoria: Từ cảm hứng miền quê Pháp đến cảm xúc ngôi nhà Việt",
         img: "https://nhaxinh.com/wp-content/uploads/2026/07/nha-xinh-victoria-phong-khach-tong-quan-1200x800.webp",
         body: `
-          <p>Gam màu trung tính như be, xám sáng, cát ấm và gỗ sồi tự nhiên luôn là chuẩn mực thanh lịch trong thiết kế nội thất đương đại. Khi được vận dụng đúng cách, chúng không chỉ giúp căn phòng trở nên rộng mở mà còn mang lại cảm giác an yên tuyệt đối cho gia chủ.</p>
-          <h4 style="font-size:1.05rem; font-weight:700; margin:18px 0 8px; color:#121212;">1. Phân tầng thị giác bằng chất liệu (Texture Layering)</h4>
-          <p>Điểm mấu chốt để phòng khách đơn sắc không bị nhàm chán là sự tương phản về bề mặt: kết hợp giữa vải sofa dệt thô mộc, thảm len ngắn trải sàn, mặt bàn đá marble vân mờ cùng các thanh lam gỗ sồi trang trí.</p>
-          <h4 style="font-size:1.05rem; font-weight:700; margin:18px 0 8px; color:#121212;">2. Ánh sáng tán xạ tôn vinh đường nét</h4>
-          <p>Hệ thống đèn hắt trần 3000K kết hợp đèn cây đọc sách góc phòng sẽ tạo nên những mảng sáng tối dịu nhẹ, tôn lên vẻ đẹp mềm mại của từng món đồ nội thất.</p>
+          <p>Mang nét đẹp thanh tao, mềm mại của phong cách Country Chic Pháp, bộ sưu tập Victoria hòa quyện tinh tế với văn hóa sum họp đầm ấm của gia đình Việt đương đại. Từng chi tiết uốn lượn duyên dáng trên khung gỗ sồi kết hợp cùng vải bọc gam màu phấn pastel mang đến cảm giác dịu êm và bình yên cho không gian sống.</p>
+          <h4 style="font-size:1.05rem; font-weight:700; margin:18px 0 8px; color:#121212;">1. Tinh thần lãng mạn miền thôn dã nước Pháp</h4>
+          <p>Lấy cảm hứng từ những trang viên vùng Provence, Victoria tôn vinh đường cong tự nhiên và kỹ thuật mộng truyền thống kết hợp công nghệ CNC chính xác, tái hiện trọn vẹn nét duyên dáng hoài cổ nhưng vẫn thanh thoát trong nhịp sống hiện đại.</p>
+          <h4 style="font-size:1.05rem; font-weight:700; margin:18px 0 8px; color:#121212;">2. Gắn kết yêu thương trong nếp nhà người Việt</h4>
+          <p>Kích thước sofa, bàn trà và bàn ăn Victoria được nghiên cứu chuẩn mực theo thói quen sinh hoạt của gia đình nhiều thế hệ, tạo nên một tâm điểm sum vầy ấm cúng sau mỗi ngày làm việc.</p>
         `
       },
       "2": {
-        cat: "GIẢI PHÁP KHÔNG GIAN",
-        meta: "28 THÁNG 09, 2026 • KTS. HOÀNG MINH TRANG",
-        title: "Tối Ưu Hóa Ánh Sáng Tự Nhiên Và Luồng Khí Tươi Cho Căn Hộ Đô Thị",
+        cat: "DỰ ÁN MẪU",
+        meta: "28 THÁNG 09, 2026 • THE ANTONIA PHÚ MỸ HƯNG",
+        title: "Không Gian Nhà Xinh Mới Đa Sắc Màu Lộ Diện Tại The Antonia Phú Mỹ Hưng",
         img: "https://nhaxinh.com/wp-content/uploads/2026/05/ban-an-victoria-II-1m8-3-1.webp",
         body: `
-          <p>Trong các căn hộ hiện đại, việc lưu thông không khí và đón nhận ánh sáng mặt trời là nhân tố quyết định đến sức khỏe và tinh thần của các thành viên trong gia đình.</p>
-          <h4 style="font-size:1.05rem; font-weight:700; margin:18px 0 8px; color:#121212;">1. Thiết kế mặt bằng liên thông (Open Plan)</h4>
-          <p>Kết nối liền mạch giữa khu vực ăn uống và phòng khách giúp ánh sáng tự nhiên từ ban công len lỏi đến từng góc sâu nhất của ngôi nhà. Bàn ăn gỗ tự nhiên được dùng như một vách ngăn mềm đầy duyên dáng.</p>
-          <h4 style="font-size:1.05rem; font-weight:700; margin:18px 0 8px; color:#121212;">2. Điểm xuyết mảng xanh điều hòa vi khí hậu</h4>
-          <p>Những chậu cây cảnh lọc không khí như bàng Singapore, trầu bà lá xẻ đặt cạnh khung cửa kính vừa giảm bức xạ nhiệt vừa tạo cảm giác gần gũi với thiên nhiên.</p>
+          <p>Căn hộ mẫu tại The Antonia Phú Mỹ Hưng gây ấn tượng mạnh với sự biến tấu màu sắc thời thượng, tạo nguồn cảm hứng bất tận cho chủ nhân yêu nghệ thuật. Triết lý "The Art of Lifestyle" được hiện thực hóa qua từng góc nhìn giàu cảm xúc.</p>
+          <h4 style="font-size:1.05rem; font-weight:700; margin:18px 0 8px; color:#121212;">1. Bản giao hưởng màu sắc và ánh sáng</h4>
+          <p>Không gian kết hợp táo bạo giữa các gam màu san hô, xanh olive và vàng mù tạt trên nền tường trung tính ấm, mang lại sức sống trẻ trung và nguồn năng lượng tích cực cho căn hộ cao cấp.</p>
+          <h4 style="font-size:1.05rem; font-weight:700; margin:18px 0 8px; color:#121212;">2. Đẳng cấp từ nội thất thông minh Calligaris (Ý)</h4>
+          <p>Showroom trưng bày những mẫu bàn ăn mở rộng độc quyền cùng hệ ghế bọc da cao cấp nhập khẩu trực tiếp từ Ý, tối ưu tuyệt đối công năng cho các buổi tiệc gia đình sang trọng.</p>
         `
       },
       "3": {
-        cat: "CẨM NANG VẬT LIỆU",
-        meta: "05 THÁNG 11, 2026 • KỸ SƯ NGUYỄN HỮU ĐỨC",
-        title: "Bí Quyết Chăm Sóc Nội Thất Gỗ Tự Nhiên & Da Thật Luôn Bền Đẹp Theo Năm Tháng",
-        img: "https://nhaxinh.com/wp-content/uploads/2026/05/giuong-victoria-II-2-1.webp",
+        cat: "SỰ KIỆN",
+        meta: "05 THÁNG 11, 2026 • FLAGSHIP THẢO ĐIỀN",
+        title: "Chính thức ra mắt flagship store đầu tiên Nhà Xinh x RuNam tại khu vực Thảo Điền",
+        img: "https://nhaxinh.com/wp-content/uploads/2026/11/NhaXinhxRuNam9613.jpg",
         body: `
-          <p>Nội thất làm từ da bò thuộc cao cấp và gỗ tự nhiên là những vật liệu hữu cơ sống động. Nếu được bảo dưỡng đúng cách, vẻ đẹp của chúng sẽ ngày càng thăng hoa theo thời gian.</p>
-          <h4 style="font-size:1.05rem; font-weight:700; margin:18px 0 8px; color:#121212;">1. Vệ sinh và cấp ẩm cho bề mặt da</h4>
-          <p>Nên hút bụi định kỳ bằng đầu chổi mềm và lau sạch bằng khăn vi sợi hơi ẩm. Cứ 6 tháng, hãy thoa một lớp kem dưỡng da chuyên dụng để ngăn ngừa khô ráp do máy lạnh.</p>
-          <h4 style="font-size:1.05rem; font-weight:700; margin:18px 0 8px; color:#121212;">2. Duy trì độ ẩm ổn định cho gỗ tự nhiên</h4>
-          <p>Tránh đặt sản phẩm gỗ sát cửa kính nắng gắt hoặc luồng gió phả trực tiếp từ máy sưởi/điều hòa để thớ gỗ giữ được độ ẩm tự nhiên, không cong vênh hay co ngót.</p>
+          <p>Đánh dấu bước đột phá với mô hình trải nghiệm nội thất song hành thưởng thức ẩm thực cà phê boutique cao cấp ngay trung tâm Thảo Điền. Đây là không gian tương tác đa giác quan đầu tiên tại Việt Nam kết hợp giữa Nhà Xinh và RuNam.</p>
+          <h4 style="font-size:1.05rem; font-weight:700; margin:18px 0 8px; color:#121212;">1. Trải nghiệm chạm và cảm nhận độc bản</h4>
+          <p>Khách hàng có thể vừa nhâm nhi tách cà phê đặc sản thượng hạng, vừa trực tiếp trải nghiệm cảm giác ngồi trên những chiếc sofa bọc da bò Ý hảo hạng trong một khung cảnh kiến trúc sân vườn thơ mộng.</p>
+          <h4 style="font-size:1.05rem; font-weight:700; margin:18px 0 8px; color:#121212;">2. Cột mốc 27 năm kiến tạo phong cách sống</h4>
+          <p>Flagship store khẳng định vị thế dẫn đầu của Nhà Xinh trong việc kiến tạo không gian sống truyền cảm hứng, đưa vẻ đẹp thẩm mỹ hòa quyện trọn vẹn vào từng khoảnh khắc thường nhật.</p>
         `
       }
     };
