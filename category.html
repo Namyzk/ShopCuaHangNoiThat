@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
@@ -179,7 +179,61 @@
       <nav class="nx-nav">
         <ul class="nx-nav__list">
           <li class="nx-nav__item"><a href="category.html?filter=moi" class="nx-nav__link">Sản phẩm mới</a></li>
-          <li class="nx-nav__item is-active"><a href="category.html" class="nx-nav__link">Sản phẩm <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg></a></li>
+          
+          <!-- MEGA MENU: SẢN PHẨM (3 CỘT CỐT LÕI: SOFA - GIƯỜNG NGỦ - BÀN ĂN) -->
+          <li class="nx-nav__item has-dropdown has-mega-menu is-active">
+            <a href="category.html" class="nx-nav__link" aria-haspopup="true">
+              Sản phẩm
+              <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+            </a>
+            
+            <div class="nx-mega-menu" role="menu">
+              <div class="nx-mega-menu__grid">
+                
+                <div class="nx-mega-column">
+                  <h3 class="nx-mega-column__title"><a href="category.html?cat=sofa" style="color:inherit; text-decoration:none;">Sofa & Armchair</a></h3>
+                  <ul class="nx-mega-column__list">
+                    <li><a href="category.html?cat=sofa" style="font-weight:600; color:#ba8b59;">&bull; Xem tất cả Sofa</a></li>
+                    <li><a href="category.html?cat=sofa-bang">Sofa băng</a></li>
+                    <li><a href="category.html?cat=sofa-goc">Sofa góc chữ L</a></li>
+                    <li><a href="category.html?cat=sofa-da-y">Sofa da Ý cao cấp</a></li>
+                    <li><a href="category.html?cat=armchair">Armchair thư giãn</a></li>
+                    <li><a href="category.html?cat=ghe-dai-don">Ghế dài & Đôn sofa</a></li>
+                  </ul>
+                </div>
+
+                <div class="nx-mega-column">
+                  <h3 class="nx-mega-column__title"><a href="category.html?cat=giuong-ngu" style="color:inherit; text-decoration:none;">Giường Ngủ</a></h3>
+                  <ul class="nx-mega-column__list">
+                    <li><a href="category.html?cat=giuong-ngu" style="font-weight:600; color:#ba8b59;">&bull; Xem tất cả Giường ngủ</a></li>
+                    <li><a href="category.html?cat=giuong-boc-da-ni">Giường bọc nỉ / da</a></li>
+                    <li><a href="category.html?cat=giuong-go">Giường ngủ gỗ tự nhiên</a></li>
+                    <li><a href="category.html?cat=tu-dau-giuong">Tủ đầu giường đồng bộ</a></li>
+                  </ul>
+                </div>
+
+                <div class="nx-mega-column">
+                  <h3 class="nx-mega-column__title"><a href="category.html?cat=ban-an" style="color:inherit; text-decoration:none;">Bàn Ăn</a></h3>
+                  <ul class="nx-mega-column__list">
+                    <li><a href="category.html?cat=ban-an" style="font-weight:600; color:#ba8b59;">&bull; Xem tất cả Bàn ăn</a></li>
+                    <li><a href="category.html?cat=ban-an-mo-rong">Bàn ăn mở rộng thông minh</a></li>
+                    <li><a href="category.html?cat=ban-an-mat-da">Bàn ăn mặt đá cao cấp</a></li>
+                    <li><a href="category.html?cat=ghe-an">Ghế ăn bọc đệm êm ái</a></li>
+                  </ul>
+                </div>
+
+                <div class="nx-mega-featured">
+                  <img src="https://nhaxinh.com/wp-content/uploads/2026/09/sofa-penny-2.webp" alt="Bộ sưu tập Mùa Thu">
+                  <div class="nx-mega-featured__overlay">
+                    <h4 style="font-size:1rem; text-transform:uppercase; font-weight:600;">Bộ Sưu Tập 2026</h4>
+                    <p style="font-size:0.75rem; color:#ddd;">Sofa &bull; Giường ngủ &bull; Bàn ăn</p>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </li>
+
           <li class="nx-nav__item has-dropdown">
             <a href="phong-khach.html" class="nx-nav__link" aria-haspopup="true">
               Phòng
@@ -231,25 +285,49 @@
   <!-- Category Banner -->
   <header class="cat-hero-banner">
     <div class="nx-container">
-      <h1 class="cat-hero-title">SOFA PHÒNG KHÁCH</h1>
-      <p style="letter-spacing: 0.5px; color: #eee;">Khám phá các thiết kế sofa sang trọng từ đương đại đến cổ điển thanh lịch</p>
+      <h1 class="cat-hero-title">SẢN PHẨM NỘI THẤT</h1>
+      <p style="letter-spacing: 0.5px; color: #eee;">Khám phá các thiết kế nội thất sang trọng, thanh lịch chuẩn mực từ Nhà Xinh Hưng Yên</p>
     </div>
   </header>
 
   <!-- Main Shop Layout -->
   <main class="nx-container">
+    
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb" id="cat-breadcrumb" style="padding: 14px 0 20px; font-size: 0.85rem; color: #888;" aria-label="Đường dẫn">
+      <a href="index.html" style="color: #666; text-decoration: none;">Trang chủ</a> <span style="margin: 0 6px;">/</span>
+      <a href="category.html" style="color: #666; text-decoration: none;">Sản phẩm</a> <span style="margin: 0 6px;">/</span>
+      <strong style="color: #111;" id="breadcrumb-current-cat">Tất cả sản phẩm</strong>
+    </nav>
+
+        <!-- Category Quick Switch Pills (3 Mặt Hàng Cốt Lõi: Sofa - Giường Ngủ - Bàn Ăn) -->
+    <div class="category-pills-bar" id="category-pills">
+      <a href="category.html?cat=all" class="cat-pill is-active">Tất cả</a>
+      <a href="category.html?cat=sofa" class="cat-pill">Sofa</a>
+      <a href="category.html?cat=sofa-bang" class="cat-pill">Sofa băng</a>
+      <a href="category.html?cat=sofa-goc" class="cat-pill">Sofa góc</a>
+      <a href="category.html?cat=sofa-da-y" class="cat-pill">Sofa da Ý</a>
+      <a href="category.html?cat=armchair" class="cat-pill">Armchair & Đôn</a>
+      <a href="category.html?cat=giuong-ngu" class="cat-pill">Giường ngủ</a>
+      <a href="category.html?cat=giuong-boc-da-ni" class="cat-pill">Giường bọc nỉ/da</a>
+      <a href="category.html?cat=giuong-go" class="cat-pill">Giường gỗ tự nhiên</a>
+      <a href="category.html?cat=tu-dau-giuong" class="cat-pill">Tủ đầu giường</a>
+      <a href="category.html?cat=ban-an" class="cat-pill">Bàn ăn</a>
+      <a href="category.html?cat=ban-an-mo-rong" class="cat-pill">Bàn ăn mở rộng</a>
+      <a href="category.html?cat=ban-an-mat-da" class="cat-pill">Bàn ăn mặt đá</a>
+      <a href="category.html?cat=ghe-an" class="cat-pill">Ghế ăn bọc đệm</a>
+    </div>
     <div class="shop-layout">
       
       <!-- Faceted Filters Sidebar -->
       <aside class="filter-sidebar" aria-label="Bộ lọc sản phẩm">
         
-        <div class="filter-group">
-          <h3 class="filter-group-title">Kiểu dáng</h3>
+                <div class="filter-group">
+          <h3 class="filter-group-title">Danh mục cốt lõi</h3>
           <ul class="filter-list">
-            <li><label class="filter-checkbox-label"><input type="checkbox" name="cat_type" value="3-cho"> Sofa 3 chỗ</label></li>
-            <li><label class="filter-checkbox-label"><input type="checkbox" name="cat_type" value="sofa-bang"> Sofa băng</label></li>
-            <li><label class="filter-checkbox-label"><input type="checkbox" name="cat_type" value="sofa-goc"> Sofa góc L</label></li>
-            <li><label class="filter-checkbox-label"><input type="checkbox" name="cat_type" value="armchair"> Armchair & 2 chỗ</label></li>
+            <li><label class="filter-checkbox-label"><input type="checkbox" name="cat_type" value="sofa"> Sofa & Armchair</label></li>
+            <li><label class="filter-checkbox-label"><input type="checkbox" name="cat_type" value="giuong"> Giường ngủ & Tủ đầu giường</label></li>
+            <li><label class="filter-checkbox-label"><input type="checkbox" name="cat_type" value="ban-an"> Bàn ăn & Ghế ăn</label></li>
           </ul>
         </div>
 
@@ -662,6 +740,7 @@
     </div>
   </footer>
 
+  <script src="js/catalog-data.js"></script>
   <script src="js/script.js"></script>
   <script>
     function switchPage(pageNumber, btn) {

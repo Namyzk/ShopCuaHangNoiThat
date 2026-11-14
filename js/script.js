@@ -1,4 +1,4 @@
-/**
+﻿/**
  * ==========================================================================
  * DỰ ÁN: WEBSITE NỘI THẤT CAO CẤP NHÀ XINH (ĐỒ ÁN WEB)
  * Kiến trúc: Hướng đối tượng ES6 (Class-based OOP Modules)
@@ -171,7 +171,7 @@ class HomepageTabsFilterModule {
 }
 
 /**
- * 5. Module Lọc Đa Tầng (Faceted Filter & Sort Engine) trên Trang Danh Mục (category.html)
+ * 5. Module Lọc Đa Tầng & Hiển Thị Danh Mục Động (Faceted Filter & Catalog Engine) trên category.html
  */
 class CategoryFacetedFilterModule {
   constructor() {
@@ -186,28 +186,54 @@ class CategoryFacetedFilterModule {
   }
 
   init() {
-    // Lắng nghe sự kiện thay đổi của tất cả checkbox lọc
-    document.querySelectorAll('.filter-sidebar input[type="checkbox"]').forEach(cb => {
-      cb.addEventListener('change', () => this.filterAndSort());
-    });
+    // 1. Kiểm tra URL Parameter trước để tải đúng danh mục / từ khóa
+    this.checkUrlParameters();
 
-    // Lắng nghe sự kiện đổi cách sắp xếp
+    // 2. Lắng nghe sự kiện thay đổi của tất cả checkbox lọc
+    this.bindFilterEvents();
+
+    // 3. Lắng nghe sự kiện đổi cách sắp xếp
     if (this.sortSelect) {
       this.sortSelect.addEventListener('change', () => this.filterAndSort());
     }
 
-    // Nút reset bộ lọc
+    // 4. Nút reset bộ lọc
     if (this.resetBtn) {
       this.resetBtn.addEventListener('click', () => this.resetFilters());
     }
+  }
 
-    // Kiểm tra URL Parameter (Tìm kiếm hoặc danh mục phòng)
-    this.checkUrlParameters();
+  bindFilterEvents() {
+    document.querySelectorAll('.filter-sidebar input[type="checkbox"]').forEach(cb => {
+      cb.addEventListener('change', () => this.filterAndSort());
+    });
   }
 
   checkUrlParameters() {
     const params = new URLSearchParams(window.location.search);
-    const searchVal = params.get('search');
+    let catKey = params.get('cat') || params.get('type') || '';
+    if (catKey === 'giuong') catKey = 'giuong-ngu';
+    if (catKey === 'ban') catKey = 'ban-an';
+    const filterKey = params.get('filter') || '';
+    const searchVal = params.get('search') || '';
+
+    if (typeof NHA_XINH_CATALOG !== 'undefined') {
+      if (catKey && catKey !== 'all' && NHA_XINH_CATALOG[catKey]) {
+        this.loadCategoryData(catKey);
+        return;
+      } else if (filterKey === 'moi' || filterKey === 'san-pham-moi') {
+        this.loadNewProducts();
+        return;
+      } else if (searchVal) {
+        this.searchAllCatalog(searchVal);
+        return;
+      } else if (catKey === 'all' || (!catKey && !filterKey && !searchVal)) {
+        this.loadAllCatalog();
+        return;
+      }
+    }
+
+    // Fallback nếu không có NHA_XINH_CATALOG hoặc tìm kiếm tĩnh
     if (searchVal) {
       const decoded = decodeURIComponent(searchVal).toLowerCase();
       let matchedCount = 0;
@@ -216,14 +242,230 @@ class CategoryFacetedFilterModule {
         const title = (card.querySelector('.nx-card__title, .product-title')?.textContent || '').toLowerCase();
         const cat = (card.querySelector('.nx-card__category')?.textContent || '').toLowerCase();
         const match = title.includes(decoded) || cat.includes(decoded);
-        card.style.display = match ? '' : 'none';
+        card.style.display = match ? 'flex' : 'none';
         if (match) matchedCount++;
       });
       if (this.countEl) this.countEl.textContent = matchedCount;
       if (this.emptyState) this.emptyState.style.display = (matchedCount === 0) ? 'block' : 'none';
-      const heading = document.querySelector('.nx-section-header__title, .category-page-title');
+      const heading = document.querySelector('.nx-section-header__title, .category-page-title, .cat-hero-title');
       if (heading) heading.textContent = `KẾT QUẢ TÌM KIẾM: "${searchVal.toUpperCase()}"`;
-      NhaXinhApp.toast(`Tìm thấy ${matchedCount} sản phẩm khớp với "${searchVal}"`);
+    }
+  }
+
+  loadCategoryData(catKey) {
+    const catData = NHA_XINH_CATALOG[catKey];
+    if (!catData) return;
+
+    // Cập nhật Document Title
+    document.title = `${catData.name} - Nội Thất Nhà Xinh Hưng Yên`;
+
+    // Cập nhật Banner Hero
+    const heroTitle = document.querySelector('.cat-hero-title, .category-page-title');
+    if (heroTitle) heroTitle.textContent = catData.name.toUpperCase();
+
+    const heroDesc = document.querySelector('.cat-hero-banner p');
+    if (heroDesc && catData.desc) heroDesc.textContent = catData.desc;
+
+    // Cập nhật Breadcrumb
+    const bcCurrent = document.getElementById('breadcrumb-current-cat');
+    if (bcCurrent) bcCurrent.textContent = catData.name;
+
+    // Active pill
+    document.querySelectorAll('.category-pills-bar .cat-pill').forEach(pill => {
+      const href = pill.getAttribute('href') || '';
+      if (href.includes(`cat=${catKey}`)) {
+        pill.classList.add('is-active');
+      } else {
+        pill.classList.remove('is-active');
+      }
+    });
+
+    // Render danh sách sản phẩm khớp chính xác với tiêu đề trang nhỏ
+    this.renderProducts(catData.products, catData.name);
+
+    // Cập nhật số đếm
+    const countText = document.getElementById('category-counter-text');
+    if (countText) {
+      countText.innerHTML = `Hiển thị <strong id="cat-shown-count">${catData.products.length}</strong> trong tổng số <strong>${catData.products.length}</strong> sản phẩm ${catData.name.toLowerCase()}`;
+    }
+    if (this.countEl) this.countEl.textContent = catData.products.length;
+
+    if (typeof NhaXinhApp !== 'undefined' && NhaXinhApp.toast) {
+      NhaXinhApp.toast(`Đang xem: ${catData.name} (${catData.products.length} sản phẩm)`);
+    }
+  }
+
+  loadNewProducts() {
+    document.title = `Sản Phẩm Mới 2026 - Nội Thất Nhà Xinh Hưng Yên`;
+    const heroTitle = document.querySelector('.cat-hero-title, .category-page-title');
+    if (heroTitle) heroTitle.textContent = "BỘ SƯU TẬP SẢN PHẨM MỚI 2026";
+
+    const heroDesc = document.querySelector('.cat-hero-banner p');
+    if (heroDesc) heroDesc.textContent = "Khám phá các thiết kế mới nhất 2026 mang đậm phong cách đương đại chuẩn phong cách sống Châu Âu.";
+
+    const bcCurrent = document.getElementById('breadcrumb-current-cat');
+    if (bcCurrent) bcCurrent.textContent = "Sản phẩm mới";
+
+    const allNew = [];
+    Object.keys(NHA_XINH_CATALOG).forEach(k => {
+      const cat = NHA_XINH_CATALOG[k];
+      cat.products.forEach(p => {
+        if (p.badge === 'MỚI' || p.badge === 'HOT') {
+          allNew.push({ ...p, catName: cat.name });
+        }
+      });
+    });
+
+    this.renderProducts(allNew, "Sản phẩm mới");
+    const countText = document.getElementById('category-counter-text');
+    if (countText) {
+      countText.innerHTML = `Hiển thị <strong id="cat-shown-count">${allNew.length}</strong> trong tổng số <strong>${allNew.length}</strong> sản phẩm mới 2026`;
+    }
+    if (this.countEl) this.countEl.textContent = allNew.length;
+  }
+
+  searchAllCatalog(query) {
+    const decoded = decodeURIComponent(query).trim().toLowerCase();
+    document.title = `Tìm kiếm: "${query}" - Nhà Xinh Hưng Yên`;
+    const heroTitle = document.querySelector('.cat-hero-title, .category-page-title');
+    if (heroTitle) heroTitle.textContent = `KẾT QUẢ TÌM KIẾM: "${query.toUpperCase()}"`;
+
+    const heroDesc = document.querySelector('.cat-hero-banner p');
+    if (heroDesc) heroDesc.textContent = `Các mẫu nội thất cao cấp khớp với tiêu chí tìm kiếm "${query}" tại hệ thống Nhà Xinh.`;
+
+    const bcCurrent = document.getElementById('breadcrumb-current-cat');
+    if (bcCurrent) bcCurrent.textContent = `Tìm kiếm: "${query}"`;
+
+    const matches = [];
+    const coreCats = ["sofa", "giuong-ngu", "ban-an"];
+    coreCats.forEach(k => {
+      const cat = NHA_XINH_CATALOG[k];
+      if (cat && cat.products) {
+        cat.products.forEach(p => {
+          const fullSearchStr = `${p.name} ${cat.name} ${cat.group} ${p.material || ''} ${p.sku || ''}`.toLowerCase();
+          if (fullSearchStr.includes(decoded)) {
+            matches.push({ ...p, catName: cat.name });
+          }
+        });
+      }
+    });
+
+    this.renderProducts(matches, `Kết quả tìm kiếm`);
+    const countText = document.getElementById('category-counter-text');
+    if (countText) {
+      countText.innerHTML = `Hiển thị <strong id="cat-shown-count">${matches.length}</strong> trong tổng số <strong>${matches.length}</strong> sản phẩm tìm thấy`;
+    }
+    if (this.countEl) this.countEl.textContent = matches.length;
+  }
+
+  loadAllCatalog() {
+    document.title = `3 Mặt Hàng Cốt Lõi: Sofa - Giường Ngủ - Bàn Ăn | Nội Thất Nhà Xinh`;
+    const heroTitle = document.querySelector('.cat-hero-title, .category-page-title');
+    if (heroTitle) heroTitle.textContent = "3 MẶT HÀNG CỐT LÕI: SOFA - GIƯỜNG NGỦ - BÀN ĂN";
+
+    const heroDesc = document.querySelector('.cat-hero-banner p');
+    if (heroDesc) heroDesc.textContent = "Tuyển chọn các thiết kế nội thất đương đại chuẩn mực phong cách sống Châu Âu: Sofa êm ái, Giường ngủ an lành và Bàn ăn sum vầy.";
+
+    const bcCurrent = document.getElementById('breadcrumb-current-cat');
+    if (bcCurrent) bcCurrent.textContent = "Tất cả sản phẩm cốt lõi";
+
+    document.querySelectorAll('.category-pills-bar .cat-pill').forEach(pill => {
+      const href = pill.getAttribute('href') || '';
+      if (href.includes('cat=all') || href === 'category.html') {
+        pill.classList.add('is-active');
+      } else {
+        pill.classList.remove('is-active');
+      }
+    });
+
+    const allProds = [
+      ...(NHA_XINH_CATALOG["sofa"] ? NHA_XINH_CATALOG["sofa"].products : []),
+      ...(NHA_XINH_CATALOG["giuong-ngu"] ? NHA_XINH_CATALOG["giuong-ngu"].products : []),
+      ...(NHA_XINH_CATALOG["ban-an"] ? NHA_XINH_CATALOG["ban-an"].products : [])
+    ];
+
+    this.renderProducts(allProds, "Nội thất cốt lõi");
+    const countText = document.getElementById('category-counter-text');
+    if (countText) {
+      countText.innerHTML = `Hiển thị <strong id="cat-shown-count">${allProds.length}</strong> trong tổng số <strong>${allProds.length}</strong> sản phẩm`;
+    }
+    if (this.countEl) this.countEl.textContent = allProds.length;
+  }
+
+  renderProducts(products, catName = '') {
+    if (!this.grid) return;
+    if (products.length === 0) {
+      this.grid.innerHTML = '';
+      if (this.emptyState) this.emptyState.style.display = 'block';
+      if (this.countEl) this.countEl.textContent = '0';
+      return;
+    }
+    if (this.emptyState) this.emptyState.style.display = 'none';
+
+    this.grid.innerHTML = products.map(prod => {
+      const matSlug = this.slugify(prod.material || '');
+      const typeSlug = this.slugify(prod.cat || catName || '');
+      return `
+        <article class="nx-card" data-id="${prod.id}" data-type="${typeSlug}" data-material="${matSlug}" data-price="${prod.numPrice}" data-name="${prod.name}">
+          <div class="nx-card__thumb">
+            ${prod.badge ? `<span class="nx-card__badge">${prod.badge}</span>` : ''}
+            <button class="nx-card__wishlist" aria-label="Yêu thích"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+            <img src="${prod.img}" alt="${prod.name}" loading="lazy" onerror="this.src='https://nhaxinh.com/wp-content/uploads/2026/09/sofa-penny-2.webp'">
+            <button class="nx-card__quickview" data-quickview 
+                    data-id="${prod.id}"
+                    data-title="${prod.name}" 
+                    data-price="${prod.price}" 
+                    data-sku="${prod.sku}" 
+                    data-img="${prod.img}"
+                    data-dimensions="${prod.dimensions || ''}"
+                    data-material="${prod.material || ''}">Xem nhanh</button>
+          </div>
+          <div class="nx-card__info">
+            <span class="nx-card__category">${prod.cat || catName}</span>
+            <h3 class="nx-card__title"><a href="product-detail.html?id=${prod.id}">${prod.name}</a></h3>
+            <div class="nx-card__price">${prod.price}</div>
+            <button class="nx-card__add-btn">Thêm vào giỏ</button>
+          </div>
+        </article>
+      `;
+    }).join('');
+
+    // Cập nhật bộ lọc động Chất liệu cho các sản phẩm danh mục này
+    this.updateDynamicFilters(products);
+  }
+
+  slugify(text) {
+    return text.toString().toLowerCase()
+      .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '');
+  }
+
+  updateDynamicFilters(products) {
+    const matListEl = document.querySelector('.filter-group:nth-of-type(2) .filter-list');
+    if (!matListEl) return;
+
+    const matMap = new Map();
+    products.forEach(p => {
+      if (p.material) {
+        const slug = this.slugify(p.material);
+        if (!matMap.has(slug)) {
+          matMap.set(slug, p.material);
+        }
+      }
+    });
+
+    if (matMap.size > 0) {
+      let html = '';
+      matMap.forEach((name, slug) => {
+        html += `<li><label class="filter-checkbox-label"><input type="checkbox" name="cat_material" value="${slug}"> ${name}</label></li>`;
+      });
+      matListEl.innerHTML = html;
+
+      // Gán lại sự kiện change cho các checkbox lọc mới sinh
+      matListEl.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+        cb.addEventListener('change', () => this.filterAndSort());
+      });
     }
   }
 
@@ -233,13 +475,14 @@ class CategoryFacetedFilterModule {
     });
     if (this.sortSelect) this.sortSelect.value = 'newest';
     this.filterAndSort();
-    NhaXinhApp.toast('Đã xóa tất cả bộ lọc');
+    if (typeof NhaXinhApp !== 'undefined' && NhaXinhApp.toast) {
+      NhaXinhApp.toast('Đã xóa tất cả bộ lọc');
+    }
   }
 
   filterAndSort() {
     const cards = Array.from(this.grid.querySelectorAll('.nx-card'));
 
-    // Lấy các giá trị đã tích chọn theo từng nhóm
     const selectedTypes = Array.from(document.querySelectorAll('input[name="cat_type"]:checked')).map(el => el.value);
     const selectedMaterials = Array.from(document.querySelectorAll('input[name="cat_material"]:checked')).map(el => el.value);
     const selectedPrices = Array.from(document.querySelectorAll('input[name="cat_price"]:checked')).map(el => el.value);
@@ -251,8 +494,13 @@ class CategoryFacetedFilterModule {
       const material = card.getAttribute('data-material') || '';
       const price = parseInt(card.getAttribute('data-price')) || 0;
 
-      // 1. Kiểm tra nhóm Kiểu dáng
-      const matchType = selectedTypes.length === 0 || selectedTypes.includes(type);
+      // 1. Kiểm tra nhóm Danh mục cốt lõi (Sofa - Giường - Bàn ăn)
+      const matchType = selectedTypes.length === 0 || selectedTypes.some(t => {
+        if (t === 'sofa') return type.includes('sofa') || type.includes('armchair') || type.includes('don');
+        if (t === 'giuong') return type.includes('giuong') || type.includes('dau-giuong');
+        if (t === 'ban-an') return type.includes('ban-an') || type.includes('ghe-an') || type.includes('ban');
+        return type.includes(t);
+      });
 
       // 2. Kiểm tra nhóm Chất liệu
       const matchMaterial = selectedMaterials.length === 0 || selectedMaterials.includes(material);
@@ -270,15 +518,11 @@ class CategoryFacetedFilterModule {
       if (isMatch) visibleCount++;
     });
 
-    // Cập nhật số lượng sản phẩm hiển thị
     if (this.countEl) this.countEl.textContent = visibleCount;
-
-    // Hiển thị trạng thái rỗng nếu không tìm thấy
     if (this.emptyState) {
       this.emptyState.style.display = (visibleCount === 0) ? 'block' : 'none';
     }
 
-    // Sắp xếp các sản phẩm hiển thị
     this.sortCards(cards);
   }
 
@@ -295,11 +539,132 @@ class CategoryFacetedFilterModule {
       if (sortVal === 'price-asc') return priceA - priceB;
       if (sortVal === 'price-desc') return priceB - priceA;
       if (sortVal === 'name-asc') return nameA.localeCompare(nameB, 'vi');
-      return 0; // Mặc định 'newest'
+      return 0;
     });
 
-    // Cập nhật lại vị trí DOM
     cards.forEach(card => this.grid.appendChild(card));
+  }
+}
+
+/**
+ * 5.1. Module Chi Tiết Sản Phẩm Động (ProductDetailModule) cho product-detail.html
+ */
+class ProductDetailModule {
+  constructor() {
+    this.pdpGrid = document.querySelector('.pdp-grid');
+    if (!this.pdpGrid) return;
+    this.init();
+  }
+
+  init() {
+    const params = new URLSearchParams(window.location.search);
+    const prodId = params.get('id');
+    if (!prodId || typeof NHA_XINH_CATALOG === 'undefined') return;
+
+    let foundProd = null;
+    let foundCat = null;
+    let foundCatKey = null;
+
+    for (const catKey of Object.keys(NHA_XINH_CATALOG)) {
+      const cat = NHA_XINH_CATALOG[catKey];
+      const p = cat.products.find(it => it.id === prodId);
+      if (p) {
+        foundProd = p;
+        foundCat = cat;
+        foundCatKey = catKey;
+        break;
+      }
+    }
+
+    if (!foundProd) return;
+
+    // 1. Tiêu đề trang
+    document.title = `${foundProd.name} | Nội Thất Nhà Xinh Hưng Yên`;
+
+    // 2. Breadcrumb
+    const bc = document.querySelector('.breadcrumb');
+    if (bc) {
+      bc.innerHTML = `
+        <a href="index.html">Trang chủ</a> <span>/</span>
+        <a href="category.html?cat=${foundCatKey}">${foundCat.group}</a> <span>/</span>
+        <a href="category.html?cat=${foundCatKey}">${foundCat.name}</a> <span>/</span>
+        <strong>${foundProd.name}</strong>
+      `;
+    }
+
+    // 3. Ảnh chính & Thumbs
+    const mainImg = document.getElementById('main-product-img');
+    if (mainImg) {
+      mainImg.src = foundProd.img;
+      mainImg.alt = foundProd.name;
+    }
+    const thumbs = document.querySelector('.pdp-thumbs');
+    if (thumbs) {
+      thumbs.innerHTML = `
+        <div class="pdp-thumb is-active" onclick="switchImage('${foundProd.img}', this)">
+          <img src="${foundProd.img}" alt="${foundProd.name}">
+        </div>
+        <div class="pdp-thumb" onclick="switchImage('https://nhaxinh.com/wp-content/uploads/2026/10/nha-xinh-sofa.jpg', this)">
+          <img src="https://nhaxinh.com/wp-content/uploads/2026/10/nha-xinh-sofa.jpg" alt="Phối cảnh showroom">
+        </div>
+        <div class="pdp-thumb" onclick="switchImage('${foundProd.img}', this)">
+          <img src="${foundProd.img}" alt="Cận cảnh chi tiết">
+        </div>
+      `;
+    }
+
+    // 4. Mã SP, Tên, Giá
+    const metaTop = document.querySelector('.pdp-meta-top');
+    if (metaTop) {
+      metaTop.innerHTML = `MÃ SẢN PHẨM: <strong>${foundProd.sku}</strong> &bull; TÌNH TRẠNG: <span style="color: #2e7d32; font-weight: 600;">CÒN HÀNG</span>`;
+    }
+    const titleEl = document.querySelector('.pdp-title');
+    if (titleEl) titleEl.textContent = foundProd.name.toUpperCase();
+
+    const priceEl = document.querySelector('.pdp-price');
+    if (priceEl) priceEl.innerHTML = `${foundProd.price}`;
+
+    // 5. Thông số kỹ thuật nhanh
+    const specsEl = document.querySelector('.pdp-specs-quick');
+    if (specsEl) {
+      specsEl.innerHTML = `
+        <div><span>Kích thước:</span> ${foundProd.dimensions || 'Tiêu chuẩn Nhà Xinh'}</div>
+        <div><span>Vật liệu:</span> ${foundProd.material || 'Gỗ tự nhiên & nỉ cao cấp'}</div>
+        <div><span>Bảo hành:</span> 2 năm chính hãng & bảo trì trọn đời</div>
+        <div><span>Xuất xứ:</span> Chính hãng Nhà Xinh & Nhập khẩu Châu Âu</div>
+      `;
+    }
+
+    // 6. Mô tả sản phẩm
+    const descEl = document.querySelector('.accordion-content');
+    if (descEl) {
+      descEl.innerHTML = `
+        <p><strong>${foundProd.name}</strong> là thiết kế nổi bật thuộc danh mục <em>${foundCat.name}</em> của Nội Thất Nhà Xinh Hưng Yên. Sản phẩm được gia công tỉ mỉ từ vật liệu <strong>${foundProd.material || 'cao cấp'}</strong>, đạt chuẩn kiểm định an toàn và độ bền khắt khe của Châu Âu.</p>
+        <p style="margin-top: 10px;">Đường nét thiết kế đương đại tinh tế, phù hợp bài trí trong mọi không gian sống từ biệt thự, liền kề đến chung cư cao cấp. Trải nghiệm trực tiếp tại Flagship Showroom Mega Ecopark Hưng Yên (2.500m²) và Showroom TP. Hưng Yên.</p>
+      `;
+    }
+
+    // 7. Sản phẩm liên quan cùng danh mục
+    const relatedGrid = document.querySelector('.pdp-related .nx-products-grid');
+    if (relatedGrid && foundCat.products) {
+      const otherProds = foundCat.products.filter(p => p.id !== prodId);
+      if (otherProds.length > 0) {
+        relatedGrid.innerHTML = otherProds.slice(0, 4).map(rp => `
+          <article class="nx-card">
+            <div class="nx-card__thumb">
+              ${rp.badge ? `<span class="nx-card__badge">${rp.badge}</span>` : ''}
+              <img src="${rp.img}" alt="${rp.name}" loading="lazy" onerror="this.src='https://nhaxinh.com/wp-content/uploads/2026/09/sofa-penny-2.webp'">
+            </div>
+            <div class="nx-card__info">
+              <span class="nx-card__category">${foundCat.name}</span>
+              <h3 class="nx-card__title"><a href="product-detail.html?id=${rp.id}">${rp.name}</a></h3>
+              <div class="nx-card__price">${rp.price}</div>
+              <button class="nx-card__add-btn">Thêm vào giỏ</button>
+            </div>
+          </article>
+        `).join('');
+      }
+    }
   }
 }
 
@@ -631,9 +996,10 @@ class LiveSearchModule {
           return;
         }
 
-        const matches = NX_PRODUCT_CATALOG.filter(p => 
-          p.title.toLowerCase().includes(query) || p.cat.toLowerCase().includes(query)
-        );
+        const catalog = this.getAllSearchProducts();
+        const matches = catalog.filter(p => 
+          p.title.toLowerCase().includes(query) || (p.cat && p.cat.toLowerCase().includes(query))
+        ).slice(0, 6);
 
         if (matches.length === 0) {
           dropdown.innerHTML = `<div style="padding:14px; font-size:0.8rem; color:#888; text-align:center;">Không tìm thấy sản phẩm phù hợp</div>`;
@@ -664,6 +1030,31 @@ class LiveSearchModule {
         }
       });
     });
+  }
+
+  getAllSearchProducts() {
+    if (typeof NHA_XINH_CATALOG !== 'undefined') {
+      const list = [];
+      const coreCats = ["sofa", "giuong-ngu", "ban-an"];
+      coreCats.forEach(catKey => {
+        const cat = NHA_XINH_CATALOG[catKey];
+        if (cat && cat.products) {
+          cat.products.forEach(p => {
+            list.push({
+              id: p.id,
+              title: p.name,
+              price: p.price,
+              numPrice: p.numPrice,
+              cat: p.cat || cat.name,
+              img: p.img,
+              url: `product-detail.html?id=${p.id}`
+            });
+          });
+        }
+      });
+      if (list.length > 0) return list;
+    }
+    return NX_PRODUCT_CATALOG;
   }
 }
 
@@ -782,25 +1173,30 @@ class ModalModule {
     const dialog = document.getElementById('quickview-modal');
     if (!dialog) return;
 
-    document.querySelectorAll('[data-quickview]').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const title = btn.getAttribute('data-title') || 'Sản phẩm Nhà Xinh';
-        const price = btn.getAttribute('data-price') || 'Liên hệ';
-        const img = btn.getAttribute('data-img') || '';
-        const sku = btn.getAttribute('data-sku') || 'NX-FURNITURE';
+    document.addEventListener('click', (e) => {
+      const btn = e.target.closest('[data-quickview]');
+      if (!btn) return;
+      e.preventDefault();
 
-        const qTitle = dialog.querySelector('.quickview-title');
-        const qPrice = dialog.querySelector('.quickview-price');
-        const qImg = dialog.querySelector('.quickview-img');
-        const qSku = dialog.querySelector('.quickview-sku');
+      const title = btn.getAttribute('data-title') || 'Sản phẩm Nhà Xinh';
+      const price = btn.getAttribute('data-price') || 'Liên hệ';
+      const img = btn.getAttribute('data-img') || '';
+      const sku = btn.getAttribute('data-sku') || 'NX-FURNITURE';
+      const id = btn.getAttribute('data-id') || '';
 
-        if (qTitle) qTitle.textContent = title;
-        if (qPrice) qPrice.textContent = price;
-        if (qImg) qImg.src = img;
-        if (qSku) qSku.textContent = `Mã sản phẩm: ${sku}`;
+      const qTitle = dialog.querySelector('.quickview-title');
+      const qPrice = dialog.querySelector('.quickview-price');
+      const qImg = dialog.querySelector('.quickview-img');
+      const qSku = dialog.querySelector('.quickview-sku');
+      const qLink = dialog.querySelector('a.nx-btn');
 
-        dialog.showModal();
-      });
+      if (qTitle) qTitle.textContent = title;
+      if (qPrice) qPrice.textContent = price;
+      if (qImg) qImg.src = img;
+      if (qSku) qSku.textContent = `Mã sản phẩm: ${sku}`;
+      if (qLink && id) qLink.href = `product-detail.html?id=${id}`;
+
+      dialog.showModal();
     });
 
     document.querySelectorAll('[data-close-quickview]').forEach(btn => {
@@ -1183,6 +1579,7 @@ class NhaXinhApp {
     this.slider = new HeroSliderModule();
     this.homeTabs = new HomepageTabsFilterModule();
     this.categoryFilter = new CategoryFacetedFilterModule();
+    this.productDetail = new ProductDetailModule();
     this.cart = new CartModule();
     this.wishlist = new WishlistModule();
     this.search = new LiveSearchModule();
